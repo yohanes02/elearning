@@ -3,7 +3,10 @@
 		<!-- <a href="" class="nav-link">
 			<i class="fa fa-fw fa-bars text-white"></i>
 		</a> -->
-		<a class="navbar-brand" href="#">Online Learning</a>
+		<div class="navbar-brand">
+			<a class="text-white" href="#" style="text-decoration: none;"><b>Online Learning</b></a>
+			<h6>Lucy Kanti Rahayu</h6>
+		</div>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -33,11 +36,20 @@
 				</li> -->
 			</ul>
 			<div class="d-flex">
-				<div class="nav-link">
+				<div class="nav-link align-self-center">
 					<i class="fa fa-plus-circle fa-2x"></i>
 				</div>
-				<a href="" class="nav-link">
-					<img src="http://localhost/remedial-online/assets/teacher.png" alt="" class="rounded-circle" width="35"> <small class="text-white">Pengajar</small>
+				<a href="" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
+					<div class="text-white">
+						<i class="fas fa-user-edit text-white align-self-center me-2"></i>
+						<span class="align-self-center">Change Profile</span>
+					</div>
+				</a>
+				<a href="" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
+					<div class="text-white">
+						<i class="fas fa-sign-out-alt text-white align-self-center me-2"></i>
+						<span class="align-self-center">Logout</span>
+					</div>
 				</a>
 			</div>
 		</div>

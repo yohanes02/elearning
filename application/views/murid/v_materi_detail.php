@@ -1,6 +1,7 @@
 <body class="sticky-footer" id="page-top" style="padding-top: 70px;">
-	<?php $this->load->view('pengajar/v_nav') ?>
+	<?php $this->load->view('murid/v_nav') ?>
 	<div class="container py-5" style="min-height: calc(100vh - 70px)">
+		<a href="<?php echo base_url() ?>murid/kelas/1" class="btn"><i class="fas fa-arrow-left"></i> Kembali </a>
 		<div class="row">
 			<div class="col-lg-9 p-3">
 				<div class="card p-3">

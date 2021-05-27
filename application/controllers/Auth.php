@@ -1,13 +1,14 @@
 <?php
 
-class Auth extends CI_Controller {
+class Auth extends CI_Controller
+{
 	public function __construct()
 	{
-        parent::__construct();
-        // $this->load->model('auth_model');
-        $this->load->library('email');
-		$this->load->helper("security");
-    }
+		parent::__construct();
+		// $this->load->model('auth_model');
+		$this->load->library('email');
+		// $this->load->helper("security");
+	}
 
 	public function index()
 	{
@@ -17,11 +18,9 @@ class Auth extends CI_Controller {
 		$this->load->view("components/footer");
 	}
 
-	public function cekUser() {
+	public function cekUser()
+	{
 		// redirect('pengajar');
 		redirect('murid');
 	}
-
 }
-
-?>

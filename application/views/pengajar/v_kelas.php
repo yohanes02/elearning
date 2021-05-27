@@ -230,9 +230,9 @@
 			</div>
 			<div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">
 				<div class="container">
-					<div class="row">
+					<div class="row mt-4">
 						<div class="col-lg-3">
-							<div id="filter_worksheet" class="mt-4">
+							<div id="filter_worksheet">
 								<div class="border rounded">
 									<label class="pt-2 px-2" for="" style="font-weight: bold;">Filter Worksheet</label>
 									<div class="row px-4 py-2" s>
@@ -252,7 +252,7 @@
 												<option selected disabled>Sort by status</option>
 												<option value="">Turned In</option>
 												<option value="">Turned In Late</option>
-												<option value="">Missing</option>
+												<option value="">Not Turned In</option>
 												<option value="">Graded</option>
 											</select>
 										</div>
@@ -263,12 +263,133 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-lg-9">
+							<div class="row">
+								<div class="col-lg-4 mb-3">
+									<div class="card">
+										<div class="card-body">
+											<span>Tugas 1</span>
+											<hr class="my-2">
+											<span>Yohanes</span>
+											<br>
+											<b><span>Turned in Late</span></b>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 mb-3">
+									<div class="card">
+										<div class="card-body">
+											<span>Tugas 1</span>
+											<hr class="my-2">
+											<span>Yunus Sugito</span>
+											<br>
+											<b><span>Graded</span></b>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 mb-3">
+									<div class="card">
+										<div class="card-body">
+											<span>Tugas 1</span>
+											<hr class="my-2">
+											<span>Riski Hariyasa</span>
+											<br>
+											<b><span>Turned In</span></b>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 mb-3">
+									<div class="card">
+										<div class="card-body">
+											<span>Tugas 1</span>
+											<hr class="my-2">
+											<span>Vina Yanuar</span>
+											<br>
+											<b><span>Not Turned In</span></b>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 mb-3">
+									<div class="card">
+										<div class="card-body">
+											<span>Tugas 1</span>
+											<hr class="my-2">
+											<span>Fitri Amalia</span>
+											<br>
+											<b><span>Turned In</span></b>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col-lg-9"></div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="grade" role="tabpanel" aria-labelledby="grade-tab">
+				<div class="container-fluid">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<td></td>
+								<td class="text-center">
+									<span>Tugas 1</span>
+									<br>
+									<span>28 Mei</span>
+								</td>
+								<td class="text-center">
+									<span>Tugas 2</span>
+									<br>
+									<span>28 Mei</span>
+								</td>
+								<td class="text-center">
+									<span>Tugas 3</span>
+									<br>
+									<span>28 Mei</span>
+								</td>
+								<td class="text-center">
+									<span>Tugas 4</span>
+									<br>
+									<span>28 Mei</span>
+								</td>
+								<td class="text-center">
+									<span>Tugas 5</span>
+									<br>
+									<span>28 Mei</span>
+								</td>
+								<td class="text-center">
+									<span>Tugas 6</span>
+									<br>
+									<span>28 Mei</span>
+								</td>
+								<td class="text-center">
+									<span>Tugas 7</span>
+									<br>
+									<span>28 Mei</span>
+								</td>
+								<td class="text-center">
+									<span>Tugas 8</span>
+									<br>
+									<span>28 Mei</span>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td width="250px">Yohanes</td>
+								<td class="text-center">100</td>
+								<td class="text-center">100</td>
+								<td class="text-center">100</td>
+								<td class="text-center">100</td>
+								<td class="text-center">100</td>
+								<td class="text-center">100</td>
+								<td class="text-center">100</td>
+								<td class="text-center">100</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane fade" id="grade" role="tabpanel" aria-labelledby="grade-tab">...</div>
 	</div>
 	</div>
 
