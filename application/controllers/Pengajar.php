@@ -1,6 +1,6 @@
 <?php
 
-class Pengajar extends CI_Controller
+class Pengajar extends Core_Controller
 {
 	public function __construct()
 	{
@@ -12,41 +12,31 @@ class Pengajar extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = "Online Learning - Pengajar";
-		$this->load->view("components/header", $data);
-		$this->load->view("pengajar/v_daftar_kelas");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("pengajar/v_daftar_kelas", "Pengajar", $data);
 	}
 
 	public function kelas($class_id)
 	{
-		$data['title'] = "Online Learning - Kelas";
-		$this->load->view("components/header", $data);
-		$this->load->view("pengajar/v_kelas");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("pengajar/v_kelas", "Kelas", $data);
 	}
 
 	public function createTugas()
 	{
-		$data['title'] = "Online Learning - Create Tugas";
-		$this->load->view("components/header", $data);
-		$this->load->view("pengajar/v_create_tugas");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("pengajar/v_create_tugas", "Create Tugas", $data);
 	}
 
 	public function editTugas($idKelas)
 	{
-		$data['title'] = "Online Learning - Edit Tugas";
-		$this->load->view("components/header", $data);
-		$this->load->view("pengajar/v_edit_tugas");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("pengajar/v_edit_tugas", "Edit Tugas", $data);
 	}
 
 	public function createMateri()
 	{
-		$data['title'] = "Online Learning - Create Materi";
-		$this->load->view("components/header", $data);
-		$this->load->view("pengajar/v_create_materi");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("pengajar/v_create_materi", "Create Materi", $data);
 	}
 }

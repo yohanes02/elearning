@@ -1,6 +1,6 @@
 <?php
 
-class Murid extends CI_Controller
+class Murid extends Core_Controller
 {
 	public function __construct()
 	{
@@ -12,33 +12,25 @@ class Murid extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = "Online Learning - Murid";
-		$this->load->view("components/header", $data);
-		$this->load->view("murid/v_daftar_kelas");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("murid/v_daftar_kelas", "Murid", $data);
 	}
 
 	public function kelas($class_id)
-	{
-		$data['title'] = "Online Learning - Kelas";
-		$this->load->view("components/header", $data);
-		$this->load->view("murid/v_kelas");
-		$this->load->view("components/footer");
+	{		
+		$data = [];
+		$this->template("murid/v_kelas", "Kelas", $data);
 	}
 
 	public function tugasdetail($tugas_id)
 	{
-		$data['title'] = "Online Learning - Tugas";
-		$this->load->view("components/header", $data);
-		$this->load->view("murid/v_tugas_detail");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("murid/v_tugas_detail", "Tugas", $data);
 	}
 
 	public function materidetail($materi_id)
 	{
-		$data['title'] = "Online Learning - Materi";
-		$this->load->view("components/header", $data);
-		$this->load->view("murid/v_materi_detail");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("murid/v_materi_detail", "Materi", $data);
 	}
 }

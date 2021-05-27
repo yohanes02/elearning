@@ -1,6 +1,6 @@
 <?php
 
-class Auth extends CI_Controller
+class Auth extends Core_Controller
 {
 	public function __construct()
 	{
@@ -12,10 +12,9 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = "Online Learning - Login";
-		$this->load->view("components/header", $data);
-		$this->load->view("v_login");
-		$this->load->view("components/footer");
+		$data = [];
+		$this->template("v_login", "Login", $data);
+
 	}
 
 	public function cekUser()
