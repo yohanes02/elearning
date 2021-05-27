@@ -12,9 +12,10 @@ class Auth extends Core_Controller
 
 	public function index()
 	{
-		$data = [];
-		$this->template("v_login", "Login", $data);
-
+		$data['title'] = "Online Learning - Pengajar";
+		$this->load->view("components/header", $data);
+		$this->load->view("v_login");
+		$this->load->view("components/footer");
 	}
 
 	public function cekUser()
