@@ -9,12 +9,14 @@
   <base href="<?php echo base_url() ?>" />
 </head>
 
-<body>
+<body class="sticky-footer" id="page-top" style="padding-top: 70px;">
 
   <?php include("components/header.php") ?>
+
+  <?php include("components/nav.php") ?>
 
   <?php include($content . ".php") ?>
 
   <?php include("components/footer.php"); ?>
-  
+
 </body>

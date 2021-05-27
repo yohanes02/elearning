@@ -1,5 +1,4 @@
-<body class="sticky-footer" id="page-top" style="padding-top: 70px;">
-	<?php $this->load->view('pengajar/v_nav') ?>
+
 	<div class="container-fluid" style="min-height: calc(100vh - 70px)">
 		<div id="nav_materi">
 			<div class="row border-bottom border-5">
@@ -123,7 +122,6 @@
 			</div>
 		</div>
 	</div>
-</body>
 <script>
 	$("#due_date").datepicker({
 		dateFormat: 'dd MM yy'

@@ -1,5 +1,3 @@
-<body class="sticky-footer" id="page-top" style="padding-top: 70px;">
-	<?php $this->load->view('murid/v_nav') ?>
 
 	<div class="container py-5" style="min-height: calc(100vh - 70px)">
 		<ul class="nav nav-tabs nav-fill nav-pills justify-content-center" id="tab" role="tablist">
@@ -181,7 +179,6 @@
 		</div>
 	</div>
 
-</body>
 <style>
 	.card-counter {
 		box-shadow: 2px 2px 10px #DADADA;
