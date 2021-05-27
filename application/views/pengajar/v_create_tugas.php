@@ -1,7 +1,7 @@
 <body class="sticky-footer" id="page-top" style="padding-top: 70px;">
 	<?php $this->load->view('pengajar/v_nav') ?>
 	<div class="container-fluid" style="min-height: calc(100vh - 70px)">
-		<div id="nav_materi">
+		<div id="nav_tugas">
 			<div class="row border-bottom border-5">
 				<div class="col-lg-8">
 					<div class="row">
@@ -18,7 +18,7 @@
 				<div class="col-lg-4">
 					<div id="new" class="row">
 						<div class="col-lg-12 py-3">
-							<a href="" class="btn btn-success col-lg-6 float-end">Create</a>
+							<a href="" class="btn btn-success col-lg-6 float-end" id="btn_create">Create</a>
 						</div>
 					</div>
 				</div>
@@ -30,8 +30,8 @@
 					<i class="fas fa-file-alt fa-2x col-lg-1 align-self-center text-center"></i>
 					<div class="col-lg-11">
 						<div class="form-floating">
-							<input id="title_materi" type="text" class="form-control" placeholder="test">
-							<label for="title_materi">Judul</label>
+							<input id="title_tugas" type="text" class="form-control" placeholder="test">
+							<label for="title_tugas">Judul</label>
 						</div>
 					</div>
 				</div>
@@ -39,9 +39,9 @@
 					<i class="fas fa-align-justify fa-2x col-lg-1 align-self-center text-center"></i>
 					<div class="col-lg-11">
 						<div class="form-floating">
-							<!-- <input id="description_materi" type="text" class="form-control" placeholder="test"> -->
-							<textarea id="description_materi" class="form-control" placeholder="test" style="height: 200px;"></textarea>
-							<label for="description_materi">Deskripsi</label>
+							<!-- <input id="description_tugas" type="text" class="form-control" placeholder="test"> -->
+							<textarea id="description_tugas" class="form-control" placeholder="test" style="height: 200px;"></textarea>
+							<label for="description_tugas">Deskripsi</label>
 						</div>
 					</div>
 				</div>

@@ -20,7 +20,7 @@
 				<button class="nav-link" id="grade-tab" data-bs-toggle="tab" data-bs-target="#grade" type="button" role="tab" aria-controls="grade" aria-selected="false">Grades</button>
 			</li>
 		</ul>
-		<div class="tab-content pt-2" id="tab-content">
+		<div class="tab-content pt-4" id="tab-content">
 			<div class="tab-pane fade show active" id="classwork" role="tabpanel" aria-labelledby="classwork-tab">
 				<div class="card py-4 px-4 mb-4" style="height: 15rem; border-radius: 30px;">
 					<h1><b>KELAS 1</b></h1>
@@ -37,7 +37,7 @@
 											Create Materi
 											<span><i class="fas fa-plus"></i></span>
 										</button> -->
-										<a href="<?php echo base_url(); ?>pengajar/createMateri" class="btn btn-primary my-1">
+										<a href="<?php echo base_url(); ?>pengajar/createmateri" class="btn btn-primary my-1">
 											Create Materi
 											<span><i class="fas fa-plus"></i></span>
 										</a>
@@ -123,9 +123,15 @@
 											</div>
 										</div>
 										<div class="col-lg-1 text-center align-self-center">
-											<a href="<?php echo base_url() ?>pengajar/edittugas/1">
-												<i class="fas fa-ellipsis-v"></i>
-											</a>
+											<div class="dropdown">
+												<a class="btn" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+													<i class="fas fa-ellipsis-v"></i>
+												</a>
+												<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+													<li><a class="dropdown-item" href="<?php echo base_url() ?>pengajar/edittugas/1">Edit</a></li>
+													<li><a class="dropdown-item" href="#">Delete</a></li>
+												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -222,9 +228,48 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">...</div>
-			<div class="tab-pane fade" id="grade" role="tabpanel" aria-labelledby="grade-tab">...</div>
+			<div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="student-tab">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3">
+							<div id="filter_worksheet" class="mt-4">
+								<div class="border rounded">
+									<label class="pt-2 px-2" for="" style="font-weight: bold;">Filter Worksheet</label>
+									<div class="row px-4 py-2" s>
+										<div class="mb-3">
+											<label for="tugas_list" class="form-label">Tugas</label>
+											<select name="tugas_list" id="tugas_list" class="form-select">
+												<option selected disabled>Pilih Tugas</option>
+												<option value="tugas_1">Tugas 1</option>
+												<option value="tugas_2">Tugas 2</option>
+												<option value="tugas_3">Tugas 3</option>
+											</select>
+										</div>
+										<!-- <br> -->
+										<div class="mb-3">
+											<label for="sort_status" class="form-label">Sort</label>
+											<select name="sort_status" id="sort_status" class="form-select">
+												<option selected disabled>Sort by status</option>
+												<option value="">Turned In</option>
+												<option value="">Turned In Late</option>
+												<option value="">Missing</option>
+												<option value="">Graded</option>
+											</select>
+										</div>
+										<div class="mb-3 btn-group">
+											<button class="btn btn-success">Run Filter</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9"></div>
+				</div>
+			</div>
 		</div>
+		<div class="tab-pane fade" id="grade" role="tabpanel" aria-labelledby="grade-tab">...</div>
+	</div>
 	</div>
 
 </body>

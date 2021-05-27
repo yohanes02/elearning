@@ -41,4 +41,12 @@ class Pengajar extends CI_Controller
 		$this->load->view("pengajar/v_edit_tugas");
 		$this->load->view("components/footer");
 	}
+
+	public function createMateri()
+	{
+		$data['title'] = "Online Learning - Create Materi";
+		$this->load->view("components/header", $data);
+		$this->load->view("pengajar/v_create_materi");
+		$this->load->view("components/footer");
+	}
 }
