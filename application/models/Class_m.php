@@ -79,4 +79,10 @@ class Class_m extends CI_Model
     }
     return $this->db->get("vw_cls_topic");
   }
+
+  public function updateSubject($id, $data)
+  {
+    $this->db->where(['id' => $id])->update("cls_subject", $data);
+    return $this->db->affected_rows();
+  }
 }

@@ -139,7 +139,7 @@
 												<i class="fas fa-ellipsis-v"></i>
 											</a>
 											<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												<li><a class="dropdown-item" href="<?php echo base_url() ?>pengajar/edittugas/1">Edit</a></li>
+												<li><a class="dropdown-item" href="<?= site_url('pengajar/edit' . $value['type'] . '/' . $this->aes->redmoon($value['id'])) ?>">Edit</a></li>
 												<li><a class="dropdown-item" href="#">Delete</a></li>
 											</ul>
 										</div>
