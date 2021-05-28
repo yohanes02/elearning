@@ -5,25 +5,29 @@ class Pengajar extends Core_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		// $this->load->model('auth_model');
+		$this->load->model(['Class_m']);
 		// $this->load->library('email');
 		$this->load->helper("security");
 	}
 
 	public function index()
 	{
-		$data = [];
+		$data['class_list'] = $this->Class_m->getClassByTeacher(1)->result_array();
+
 		$this->template("pengajar/v_daftar_kelas", "Pengajar", $data);
 	}
 
 	public function kelas($class_id)
 	{
-		$data = [];
+		$cls = $this->aes->bluesun($class_id);
+		$data['cls'] = $this->Class_m->getClass($cls)->row_array();
+		$data['list'] = $this->Class_m->getTopic($cls)->result_array();
 		$this->template("pengajar/v_kelas", "Kelas", $data);
 	}
 
 	public function createTugas()
 	{
+		$cls = $this->input->post('class_id');
 		$data = [];
 		$this->template("pengajar/v_create_tugas", "Create Tugas", $data);
 	}
@@ -36,7 +40,44 @@ class Pengajar extends Core_Controller
 
 	public function createMateri()
 	{
-		$data = [];
+		$data['class_id'] = $this->input->post('class_id');
 		$this->template("pengajar/v_create_materi", "Create Materi", $data);
+	}
+
+	public function submitCreateMateri()
+	{
+		$post = $this->input->post();
+
+		$cls = $this->aes->bluesun($post['class_id']);
+
+		$ins = [
+			'cls_id' 				=> $cls,
+			'title' 				=> $post['title_materi'],
+			'desc' 					=> $post['description_materi'],
+			'created_date'	=> date("Y-m-d H:i:s"),
+			'creator_id'		=> 1,
+			'creator_name'	=> 'Ana'
+		];
+
+		if (!empty($_FILES['file_materi']['name'])) {
+			$dir = $post['class_id'] . "_subject";
+			$this->session->set_userdata("dir_upload", $dir);
+			$upload = $this->ups("file_materi");
+			$ins['attachment'] = $upload;
+		}
+
+		$this->db->trans_begin();
+
+		$this->Class_m->insertSubject($ins);
+
+		if ($this->db->trans_status() !== FALSE) {
+			$this->db->trans_commit();
+			$this->session->set_userdata('result', 'Sukses membuat materi');
+		} else {
+			$this->db->trans_rollback();
+			$this->session->set_userdata('result', 'Gagal membuat materi');
+		}
+
+		redirect('pengajar/kelas/' . $post['class_id']);
 	}
 }

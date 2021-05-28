@@ -1,11 +1,11 @@
-
+<form method="POST" action="<?= site_url('pengajar/submitCreateMateri') ?>" enctype="multipart/form-data">
 	<div class="container-fluid" style="min-height: calc(100vh - 70px)">
 		<div id="nav_materi">
 			<div class="row border-bottom border-5">
 				<div class="col-lg-8">
 					<div class="row">
 						<div class="col-lg-1 py-3 align-self-center text-center">
-							<a href="<?php echo base_url() ?>pengajar/kelas/1" class="btn">
+							<a onclick="window.history.back()" class="btn">
 								<span class="fas fa-times"></span>
 							</a>
 						</div>
@@ -17,7 +17,8 @@
 				<div class="col-lg-4">
 					<div id="new" class="row">
 						<div class="col-lg-12 py-3">
-							<a href="" class="btn btn-success col-lg-6 float-end" id="btn_create">Create</a>
+							<button type="submit" class="btn btn-success col-lg-6 float-end" id="btn_create">Create</button>
+							<input type="hidden" name="class_id" value="<?= $class_id ?>">
 						</div>
 					</div>
 				</div>
@@ -29,7 +30,7 @@
 					<i class="fas fa-file-alt fa-2x col-lg-1 align-self-center text-center"></i>
 					<div class="col-lg-11">
 						<div class="form-floating">
-							<input id="title_materi" type="text" class="form-control" value="" placeholder="test">
+							<input id="title_materi" name="title_materi" type="text" class="form-control" value="" maxlength="255" placeholder="test" required>
 							<label for="title_materi">Judul</label>
 						</div>
 					</div>
@@ -38,67 +39,16 @@
 					<i class="fas fa-align-justify fa-2x col-lg-1 align-self-center text-center"></i>
 					<div class="col-lg-11">
 						<div class="form-floating">
-							<!-- <input id="description_materi" type="text" class="form-control" placeholder="test"> -->
-							<textarea id="description_materi" class="form-control" placeholder="test" style="height: 200px;"></textarea>
+							<textarea id="description_materi" name="description_materi" class="form-control" placeholder="test" style="height: 200px;" required></textarea>
 							<label for="description_materi">Deskripsi</label>
 						</div>
 					</div>
 				</div>
-				<!-- <div class="row mt-2">
-					<div class="offset-lg-1 col-lg-11 container">
-						<div class="row align-items-center mx-0" style="display: none;">
-							<div class="col-lg-1 p-0">
-								<div class="card">
-									<div class="card-body px-4">
-										<img class="img-fluid" src="https://mpng.subpng.com/20180421/fze/kisspng-pdf-computer-icons-adobe-acrobat-encapsulated-post-pdf-5adb3ce756e566.3416932315243174153559.jpg" alt="">
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-11 p-0">
-								<div class="card">
-									<div class="card-body px-4 py-1">
-										<p class="card-text mb-1">File.pdf</p>
-										<span class="card-text"><b>Document</b></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<label for="">Pilih file untuk tugas (Optional)</label>
-						<input type="file" class="form-control mt-2" id="file_upload" multiple onchange="showFileSelected()">
-					</div>
-				</div> -->
 			</div>
 			<div class="col-lg-4 p-3">
-				<!-- <div class="row mb-5">
-					<div class="col-lg-12">
-						<label class="form-label">Tipe Tugas</label>
-						<select name="tipe_tugas" id="tipe_tugas" class="form-select">
-							<option disabled>Pilih Tipe Tugas</option>
-							<option selected value="tugas">Tugas</option>
-							<option value="quiz">Quiz</option>
-							<option value="uts">UTS</option>
-							<option value="uas">UAS</option>
-						</select>
-					</div>
-				</div>
-				<div class="row">
-					<label class="form-label">Tenggat Pengumpulan</label>
-					<div class="col-lg-8">
-						<div class="form-floating">
-							<input id="due_date" type="text" class="form-control" value="10 Mei 2021" placeholder="10 Mei 2021">
-							<label for="due_date">Tanggal</label>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="form-floating">
-							<input id="due_time" type="text" class="form-control" value="12:00" placeholder="00:00">
-							<label for="due_time">Waktu</label>
-						</div>
-					</div>
-				</div> -->
 				<div class="row mt-2">
 					<div class="col-lg-12 container">
-						<div class="row align-items-center mx-0">
+						<!-- <div class="row align-items-center mx-0">
 							<div class="col-lg-3 p-2">
 								<div class="card">
 									<div class="card-body px-4">
@@ -114,14 +64,15 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<label for="">Pilih file untuk materi</label>
-						<input type="file" class="form-control mt-2" id="file_upload" multiple onchange="showFileSelected()">
+						<input type="file" name="file_materi" class="form-control mt-2" id="file_upload" multiple onchange="showFileSelected()">
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</form>
 <script>
 	$("#due_date").datepicker({
 		dateFormat: 'dd MM yy'

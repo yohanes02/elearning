@@ -20,8 +20,8 @@
 	<div class="tab-content pt-4" id="tab-content">
 		<div class="tab-pane fade show active" id="classwork" role="tabpanel" aria-labelledby="classwork-tab">
 			<div class="card py-4 px-4 mb-4" style="height: 15rem; border-radius: 30px;">
-				<h1><b>KELAS 1</b></h1>
-				<p><b>Kode Kelas</b> qeq1ka</p>
+				<h1><b><?= $cls['name'] ?></b></h1>
+				<p><b>Kode Kelas</b> <?= $cls['code'] ?></p>
 			</div>
 			<div class="container">
 				<div class="row">
@@ -30,19 +30,19 @@
 							<div class="border rounded">
 								<label class="pt-2 px-2" for="" style="font-weight: bold;">Create New</label>
 								<div class="row px-4 py-2" s>
-									<!-- <button class="btn btn-primary my-1" type="button">
-											Create Materi
-											<span><i class="fas fa-plus"></i></span>
-										</button> -->
-									<a href="<?php echo base_url(); ?>pengajar/createmateri" class="btn btn-primary my-1">
-										Create Materi
-										<span><i class="fas fa-plus"></i></span>
-									</a>
-									<br>
-									<a href="<?php echo base_url(); ?>pengajar/createtugas" class="btn btn-primary my-1" type="button">
-										Create Tugas
-										<span><i class="fas fa-plus"></i></span>
-									</a>
+									<form action="<?= site_url('pengajar/createMateri') ?>" method="POST">
+										<input type="hidden" name="class_id" value="<?= $this->uri->segment(3) ?>">
+										<button type="submit" value="subject" class="btn btn-primary my-1">
+											Create Materi <span><i class="fas fa-plus"></i></span>&nbsp;
+										</button>
+										<br>
+									</form>
+									<form action="<?= site_url('pengajar/createTugas') ?>" method="POST">
+										<input type="hidden" name="class_id" value="<?= $this->uri->segment(3) ?>">
+										<button type="submit" value="assignment" class="btn btn-primary my-1" type="button">
+											Create Tugas <span><i class="fas fa-plus"></i></span> &nbsp;
+										</button>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -103,20 +103,34 @@
 								</div>
 							</div>
 						</div>
+						<p>
+							<?php if (!empty($this->session->userdata('result'))) {
+								$res = $this->session->userdata('result');
+								$this->session->unset_userdata("result");
+								$type = (strpos($res, 'Sukses') !== false) ? "success" : "danger";
+								$msg = '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">
+												' . $res . '
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+											</div>
+											';
+								echo $msg;
+							}	?>
+
+							<?php foreach ((array)$list as $key => $value) { ?>
+
 						<div id="classwork_item_1" class="mt-2 classwork_item">
 							<div class="card">
 								<div class="row g-0">
 									<div class="col-lg-2 align-self-center">
-										<!-- <img class="img-fluid" src="" alt=""> -->
 										<div class="text-center">
-											<span><i class="fas fa-clipboard-list fa-3x"></i></span>
+											<span><i class="fas <?= $value['icon'] ?> fa-3x"></i></span>
 										</div>
 									</div>
 									<div class="col-lg-9">
 										<div class="my-1">
-											<span><b>Tugas: Tugas 1</b></span>
-											<p><small>Lucy Kanti</small></p>
-											<span class="card-text"><small>08 Mei 2021 Pukul 08:10:25</small></span>
+											<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+											<p><small><?= $value['creator_name'] ?></small></p>
+											<span class="card-text"><small><?= $value['created_date'] ?></small></span>
 										</div>
 									</div>
 									<div class="col-lg-1 text-center align-self-center">
@@ -133,94 +147,7 @@
 								</div>
 							</div>
 						</div>
-						<div id="classwork_item_2" class="mt-2 classwork_item">
-							<div class="card">
-								<div class="row g-0">
-									<div class="col-lg-2 align-self-center">
-										<!-- <img class="img-fluid" src="" alt=""> -->
-										<div class="text-center">
-											<span><i class="fas fa-book fa-3x"></i></span>
-										</div>
-									</div>
-									<div class="col-lg-9">
-										<div class="my-1">
-											<span><b>Materi: Materi 1</b></span>
-											<p><small>Lucy Kanti</small></p>
-											<span class="card-text"><small>08 Mei 2021 Pukul 08:10:25</small></span>
-										</div>
-									</div>
-									<div class="col-lg-1 text-center align-self-center">
-										<i class="fas fa-ellipsis-v"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="classwork_item_2" class="mt-2 classwork_item">
-							<div class="card">
-								<div class="row g-0">
-									<div class="col-lg-2 align-self-center">
-										<!-- <img class="img-fluid" src="" alt=""> -->
-										<div class="text-center">
-											<span><i class="fas fa-book fa-3x"></i></span>
-										</div>
-									</div>
-									<div class="col-lg-9">
-										<div class="my-1">
-											<span><b>Materi: Materi 1</b></span>
-											<p><small>Lucy Kanti</small></p>
-											<span class="card-text"><small>08 Mei 2021 Pukul 08:10:25</small></span>
-										</div>
-									</div>
-									<div class="col-lg-1 text-center align-self-center">
-										<i class="fas fa-ellipsis-v"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="classwork_item_2" class="mt-2 classwork_item">
-							<div class="card">
-								<div class="row g-0">
-									<div class="col-lg-2 align-self-center">
-										<!-- <img class="img-fluid" src="" alt=""> -->
-										<div class="text-center">
-											<span><i class="fas fa-book fa-3x"></i></span>
-										</div>
-									</div>
-									<div class="col-lg-9">
-										<div class="my-1">
-											<span><b>Materi: Materi 1</b></span>
-											<p><small>Lucy Kanti</small></p>
-											<span class="card-text"><small>08 Mei 2021 Pukul 08:10:25</small></span>
-										</div>
-									</div>
-									<div class="col-lg-1 text-center align-self-center">
-										<i class="fas fa-ellipsis-v"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="classwork_item_2" class="mt-2 classwork_item">
-							<div class="card">
-								<div class="row g-0">
-									<div class="col-lg-2 align-self-center">
-										<!-- <img class="img-fluid" src="" alt=""> -->
-										<div class="text-center">
-											<span><i class="fas fa-book fa-3x"></i></span>
-										</div>
-									</div>
-									<div class="col-lg-9">
-										<div class="my-1">
-											<span><b>Materi: Materi 1</b></span>
-											<p><small>Lucy Kanti</small></p>
-											<span class="card-text"><small>08 Mei 2021 Pukul 08:10:25</small></span>
-										</div>
-									</div>
-									<div class="col-lg-1 text-center align-self-center">
-										<i class="fas fa-ellipsis-v"></i>
-									</div>
-								</div>
-							</div>
-						</div>
+					<?php } ?>
 					</div>
 				</div>
 			</div>
