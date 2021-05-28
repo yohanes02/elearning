@@ -49,4 +49,18 @@ class Core_Controller extends CI_Controller
 
     return $this->upload->data('file_name');
   }
+
+
+  public function dop($folder = "", $subfolder = "", $file = "")
+  {
+    $pth = str_replace("system\\", "", BASEPATH) . "uploads/" . $folder . "/" . $subfolder . "/" . $file;
+
+    if (file_exists($pth)) {
+      $this->load->helper('download');
+      force_download($pth, NULL);
+      exit;
+    } else {
+      echo "<script>alert(\"File tidak ditemukan.\"); window.history.go(-1);</script>";
+    }
+  }
 }
