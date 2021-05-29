@@ -5,7 +5,7 @@ class Pengajar extends Core_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['Pengajar_m']);
+		$this->load->model(['User_m', 'Pengajar_m']);
 		// $this->load->library('email');
 		$this->load->helper("security");
 	}
@@ -159,5 +159,17 @@ class Pengajar extends Core_Controller
 		}
 
 		redirect('pengajar/kelas/' . $post['class_id']);
+	}
+
+	public function changeProfile()
+	{
+		// $data = [];
+		$user_id = $this->session->userdata('user_id');
+		$data['profile'] = $this->User_m->getProfile($user_id)->row_array();
+		$this->template("pengajar/v_change_profile", "Change Profile", $data);
+	}
+
+	public function editProfile()
+	{
 	}
 }
