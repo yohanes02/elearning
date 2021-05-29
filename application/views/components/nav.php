@@ -37,11 +37,26 @@
 			</ul>
 			<div class="d-flex">
 				<div class="nav-link align-self-center">
-					<button class="btn text-primary" data-bs-toggle="modal" data-bs-target="#create_class" style="box-shadow: none;">
+					<button class="btn text-primary" data-bs-toggle="modal" data-bs-target="
+						<?php if ($this->session->userdata('type') == 'teacher') {
+							echo '#create_class';
+						} else {
+							echo '#join_class';
+						}
+						?>" style="box-shadow: none;">
 						<i class="fa fa-plus-circle fa-2x"></i>
 					</button>
 				</div>
-				<a href="<?php echo base_url() ?>pengajar/change_profile" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
+				<?php
+				if ($this->session->userdata('type') == 'teacher') {
+				} else {
+				}
+				?>
+				<a href="<?php if ($this->session->userdata('type') == 'teacher') {
+										echo base_url() . "pengajar";
+									} else {
+										echo base_url() . "murid";
+									} ?>/changeProfile" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
 					<div class="text-white">
 						<i class="fas fa-user-edit text-white align-self-center me-2"></i>
 						<span class="align-self-center">
@@ -49,7 +64,7 @@
 						</span>
 					</div>
 				</a>
-				<a href="" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
+				<a href="<?= site_url('auth/logout') ?>" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
 					<div class="text-white">
 						<i class="fas fa-sign-out-alt text-white align-self-center me-2"></i>
 						<span class="align-self-center">Logout</span>

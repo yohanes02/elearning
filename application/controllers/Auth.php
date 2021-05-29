@@ -15,21 +15,25 @@ class Auth extends Core_Controller
 
 	public function index()
 	{
-		$data['title'] = "Online Learning";
-		$this->load->view("components/header", $data);
-		$this->load->view("v_login");
-		$this->load->view("components/footer");
+		if ($this->session->userdata('type') == 'teacher') {
+			redirect('pengajar');
+		} elseif ($this->session->userdata('type') == 'student') {
+			redirect('murid');
+		} else {
+			$data['title'] = "Online Learning";
+			$this->load->view("components/header", $data);
+			$this->load->view("v_login");
+			$this->load->view("components/footer");
+		}
 	}
 
 	public function login()
 	{
 		$email = $this->input->post('email_login');
-		$pass = $this->input->post('password_login');
+		$pass = md5($this->input->post('password_login'));
 
 		$user = $this->Auth_m->getUser($email, $pass)->row_array();
-		// print_r($user);
-		// echo count($user);
-		// die();
+
 		if (empty($user)) {
 			$this->session->set_userdata('login', 'Email dan password tidak cocok. Silahkan cek kembali');
 			redirect('auth');
@@ -52,27 +56,26 @@ class Auth extends Core_Controller
 		if ($type == 'student') {
 			$data['name'] = $user['fullname'];
 			redirect('murid');
-			// $this->template("murid/v_kelas", "Kelas", $data);
 		} elseif ($type == 'teacher') {
 			$data['name'] = $user['fullname'];
 			redirect('pengajar');
-			// $this->template("pengajar/v_kelas", "Kelas", $data);
 		}
+	}
 
-
-		// die();
-		// redirect('murid');
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('auth');
 	}
 
 	public function createNewUser()
 	{
 		$post = $this->input->post();
-		// print_r($post);
-		// die();
+
 		$ins = [
 			'email'					=> $post['email'],
 			'fullname'			=> $post['fullname'],
-			'password'			=> $post['password'],
+			'password'			=> md5($post['password']),
 			'type'					=> $post['type'],
 			'phone'					=> $post['phone'],
 			'address'				=> $post['address'],
@@ -93,7 +96,6 @@ class Auth extends Core_Controller
 			$this->db->trans_rollback();
 			$this->session->set_userdata('result', 'Gagal membuat akun');
 		}
-		// $this->session->set_userdata('result', 'Akun berhasil dibuat');
 
 		redirect('auth');
 	}
