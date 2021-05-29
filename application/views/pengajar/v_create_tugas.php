@@ -1,11 +1,11 @@
-
+<form method="POST" action="<?= site_url('pengajar/submitCreateTugas') ?>" enctype="multipart/form-data">
 	<div class="container-fluid" style="min-height: calc(100vh - 70px)">
 		<div id="nav_tugas">
 			<div class="row border-bottom border-5">
 				<div class="col-lg-8">
 					<div class="row">
 						<div class="col-lg-1 py-3 align-self-center text-center">
-							<a href="<?php echo base_url() ?>/pengajar/kelas/1" class="btn">
+							<a onclick="window.history.back()" class="btn">
 								<span class="fas fa-times"></span>
 							</a>
 						</div>
@@ -17,7 +17,8 @@
 				<div class="col-lg-4">
 					<div id="new" class="row">
 						<div class="col-lg-12 py-3">
-							<a href="" class="btn btn-success col-lg-6 float-end" id="btn_create">Create</a>
+							<button type="submit" class="btn btn-success col-lg-6 float-end" id="btn_create">Create</button>
+							<input type="hidden" name="class_id" value="<?= $class_id ?>">
 						</div>
 					</div>
 				</div>
@@ -29,7 +30,7 @@
 					<i class="fas fa-file-alt fa-2x col-lg-1 align-self-center text-center"></i>
 					<div class="col-lg-11">
 						<div class="form-floating">
-							<input id="title_tugas" type="text" class="form-control" placeholder="test">
+							<input id="title_tugas" name="title_tugas" type="text" class="form-control" placeholder="test" required>
 							<label for="title_tugas">Judul</label>
 						</div>
 					</div>
@@ -38,15 +39,14 @@
 					<i class="fas fa-align-justify fa-2x col-lg-1 align-self-center text-center"></i>
 					<div class="col-lg-11">
 						<div class="form-floating">
-							<!-- <input id="description_tugas" type="text" class="form-control" placeholder="test"> -->
-							<textarea id="description_tugas" class="form-control" placeholder="test" style="height: 200px;"></textarea>
+							<textarea id="description_tugas" name="description_tugas" class="form-control" placeholder="test" style="height: 200px;" required></textarea>
 							<label for="description_tugas">Deskripsi</label>
 						</div>
 					</div>
 				</div>
 				<div class="row mt-2">
 					<div class="offset-lg-1 col-lg-11 container">
-						<div class="row align-items-center mx-0" style="display: none;">
+						<!-- <div class="row align-items-center mx-0" style="display: none;">
 							<div class="col-lg-1 p-0">
 								<div class="card">
 									<div class="card-body px-4">
@@ -62,9 +62,9 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<label for="">Pilih file untuk tugas (Optional)</label>
-						<input type="file" class="form-control mt-2" id="file_upload" multiple onchange="showFileSelected()">
+						<input type="file" name="file_tugas" class="form-control mt-2" id="file_upload" multiple onchange="showFileSelected()">
 					</div>
 				</div>
 			</div>
@@ -72,12 +72,11 @@
 				<div class="row mb-5">
 					<div class="col-lg-12">
 						<label class="form-label">Tipe Tugas</label>
-						<select name="tipe_tugas" id="tipe_tugas" class="form-select">
-							<option selected disabled>Pilih Tipe Tugas</option>
-							<option value="tugas">Tugas</option>
-							<option value="quiz">Quiz</option>
-							<option value="uts">UTS</option>
-							<option value="uas">UAS</option>
+						<select name="tipe_tugas" id="tipe_tugas" class="form-select" required>
+							<option value="">--Pilih Tipe Tugas--</option>
+							<?php foreach ((array)$type as $key => $value) { ?>
+								<option value="<?= $key ?>"><?= $value ?></option>
+							<?php }	?>
 						</select>
 					</div>
 				</div>
@@ -85,30 +84,34 @@
 					<label class="form-label">Tenggat Pengumpulan</label>
 					<div class="col-lg-8">
 						<div class="form-floating">
-							<input id="due_date" type="text" class="form-control" placeholder="10 Mei 2021">
+							<input id="due_date" type="datetime-local" name="due_date" class="form-control" required>
 							<label for="due_date">Tanggal</label>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<!-- <div class="col-lg-4">
 						<div class="form-floating">
-							<input id="due_time" type="text" class="form-control" placeholder="00:00">
+							<input id="due_time" type="text"  class="form-control" placeholder="00:00">
 							<label for="due_time">Waktu</label>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
 	</div>
+</form>
 <script>
-	$("#due_date").datepicker({
-		dateFormat: 'dd MM yy'
-	});
-	$("#due_time").timepicker({
-		timeFormat: 'HH:mm:ss',
-		minTime: '00:15:00', // 11:45:00 AM,
-		maxHour: 23,
-		maxMinutes: 45,
-		// startTime: new Date(0, 0, 0, 15, 0, 0), // 3:00:00 PM - noon
-		interval: 15
-	});
+	// $('#datetimepicker1').datetimepicker();
+
+	// $("#due_date").datetimepicker({
+	// 	dateFormat: 'dd MM yy hh:mm:ss',
+	// 	timeFormat:  'hh:mm:ss'
+	// });
+	// $("#due_time").timepicker({
+	// 	timeFormat: 'HH:mm:ss',
+	// 	minTime: '00:15:00', // 11:45:00 AM,
+	// 	maxHour: 23,
+	// 	maxMinutes: 45,
+	// 	// startTime: new Date(0, 0, 0, 15, 0, 0), // 3:00:00 PM - noon
+	// 	interval: 15
+	// });
 </script>
