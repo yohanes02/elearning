@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\type;
+
 class Auth extends Core_Controller
 {
 	public function __construct()
@@ -19,10 +21,47 @@ class Auth extends Core_Controller
 		$this->load->view("components/footer");
 	}
 
-	public function cekUser()
+	public function login()
 	{
-		// redirect('pengajar');
-		redirect('murid');
+		$email = $this->input->post('email_login');
+		$pass = $this->input->post('password_login');
+
+		$user = $this->Auth_m->getUser($email, $pass)->row_array();
+		// print_r($user);
+		// echo count($user);
+		// die();
+		if (empty($user)) {
+			$this->session->set_userdata('login', 'Email dan password tidak cocok. Silahkan cek kembali');
+			redirect('auth');
+		}
+
+		if ($user['type'] == 's') {
+			$type = 'student';
+		} else {
+			$type = 'teacher';
+		}
+
+		$data_session = array(
+			'user_id' => $user['id'],
+			'type' => $type,
+			'name' => $user['fullname']
+		);
+
+		$this->session->set_userdata($data_session);
+
+		if ($type == 'student') {
+			$data['name'] = $user['fullname'];
+			redirect('murid');
+			// $this->template("murid/v_kelas", "Kelas", $data);
+		} elseif ($type == 'teacher') {
+			$data['name'] = $user['fullname'];
+			redirect('pengajar');
+			// $this->template("pengajar/v_kelas", "Kelas", $data);
+		}
+
+
+		// die();
+		// redirect('murid');
 	}
 
 	public function createNewUser()

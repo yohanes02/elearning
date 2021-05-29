@@ -73,11 +73,27 @@
 						<div id="div_login">
 							<h2>Login</h2>
 							<p>Sign in to your account</p>
-							<form role="form" action="<?php echo base_url(); ?>auth/cekUser" method="POST">
+							<p>
+								<?php
+
+								if (!empty($this->session->userdata('login'))) {
+									$res = $this->session->userdata('login');
+									$this->session->unset_userdata("login");
+									$msg = '<div id="alert_akun" class="alert alert-danger alert-dismissible fade show" role="alert">
+								' . $res . '
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+							';
+									echo $msg;
+								}
+
+								?>
+							</p>
+							<form action="<?= site_url('auth/login'); ?>" method="POST">
 								<label for="basic-url" class="form-label">Akun</label>
 								<div class="input-group mb-3">
 									<span class="input-group-text" id="basic-addon1"><i class="fa fa-user-circle"></i></span>
-									<input type="text" class="form-control" id="username" placeholder="Akun pengguna">
+									<input type="text" class="form-control" id="email_login" name="email_login" placeholder="Masukkan email">
 								</div>
 
 								<label for="basic-url" class="form-label">Kata Sandi</label>
@@ -91,7 +107,7 @@
 								</small>
 								<div class="row">
 									<div class="d-grid gap-2 col-3">
-										<button class="btn btn-primary" name="login" id="login">Login</button>
+										<button type="submit" class="btn btn-primary" name="login" id="login">Login</button>
 									</div>
 								</div>
 								<!-- <br> -->

@@ -5,7 +5,7 @@
 		</a> -->
 		<div class="navbar-brand">
 			<a class="text-white" href="#" style="text-decoration: none;"><b>Online Learning</b></a>
-			<h6>Name</h6>
+			<h6><?php echo $this->session->userdata('name'); ?></h6>
 		</div>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -37,12 +37,16 @@
 			</ul>
 			<div class="d-flex">
 				<div class="nav-link align-self-center">
-					<i class="fa fa-plus-circle fa-2x"></i>
+					<button class="btn text-primary" data-bs-toggle="modal" data-bs-target="#create_class" style="box-shadow: none;">
+						<i class="fa fa-plus-circle fa-2x"></i>
+					</button>
 				</div>
-				<a href="" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
+				<a href="<?php echo base_url() ?>pengajar/change_profile" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
 					<div class="text-white">
 						<i class="fas fa-user-edit text-white align-self-center me-2"></i>
-						<span class="align-self-center">Change Profile</span>
+						<span class="align-self-center">
+							Change Profile
+						</span>
 					</div>
 				</a>
 				<a href="" class="nav-link align-self-center border-start border-4" style="text-decoration: none;">
@@ -55,3 +59,65 @@
 		</div>
 	</div>
 </nav>
+<div id="create_class" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="create_class" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="modal-title h5"><b>Create New Class</b></div>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div id="class_name" class="mb-3">
+					<label for="" class="form-label">Class Name</label>
+					<input type="text" class="form-control" placeholder="Name">
+				</div>
+				<div id="class_desc" class="mb-3">
+					<label for="" class="form-label">Class Description</label>
+					<textarea class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary">Create</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="join_class" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="join_class" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="modal-title h5"><b>Join Class</b></div>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div id="class_name">
+					<label for="" class="form-label">Class Code</label>
+					<input type="text" class="form-control" placeholder="Name">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-primary">Join</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <div id="create_class" class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div> -->

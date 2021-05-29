@@ -13,4 +13,10 @@ class Auth_m extends CI_Model
 		$this->db->insert("adm_user", $input);
 		return $this->db->affected_rows();
 	}
+
+	public function getUser($email, $password)
+	{
+		$this->db->where(['email' => $email, 'password' => $password]);
+		return $this->db->get("adm_user");
+	}
 }
