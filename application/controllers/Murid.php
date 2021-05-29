@@ -5,7 +5,7 @@ class Murid extends Core_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		// $this->load->model('auth_model');
+		$this->load->model(['User_m', 'Murid_m']);
 		// $this->load->library('email');
 		$this->load->helper("security");
 	}
@@ -17,7 +17,7 @@ class Murid extends Core_Controller
 	}
 
 	public function kelas($class_id)
-	{		
+	{
 		$data = [];
 		$this->template("murid/v_kelas", "Kelas", $data);
 	}
@@ -32,5 +32,12 @@ class Murid extends Core_Controller
 	{
 		$data = [];
 		$this->template("murid/v_materi_detail", "Materi", $data);
+	}
+
+	public function changeProfile()
+	{
+		$user_id = $this->session->userdata('user_id');
+		$data['profile'] = $this->User_m->getProfile($user_id)->row_array();
+		$this->template("murid/v_change_profile", "Change Profile", $data);
 	}
 }
