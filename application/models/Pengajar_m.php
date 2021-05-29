@@ -100,4 +100,18 @@ class Pengajar_m extends CI_Model
     $this->db->where(['id' => $id])->delete("cls_subject");
     return $this->db->affected_rows();
   }
+
+
+  public function deleteAssignment($id)
+  {
+    $this->db->where(['id' => $id])->delete("cls_assignment");
+    return $this->db->affected_rows();
+  }
+
+
+  public function updateAssignment($id, $data)
+  {
+    $this->db->where(['id' => $id])->update("cls_assignment", $data);
+    return $this->db->affected_rows();
+  }
 }

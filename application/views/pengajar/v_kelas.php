@@ -49,20 +49,20 @@
 						<div id="filter" class="mt-4">
 							<div class="border rounded">
 								<label class="pt-2 px-2" for="" style="font-weight: bold;">Filter</label>
-								<div class="row px-4 py-2" s>
+								<div class="row px-4 py-2">
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" value="" id="semua_cb">
-										<label for="semua_cb" class="form-check-label">Semua</label>
-									</div>
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input" value="" id="tugas_cb">
+										<input type="checkbox" class="form-check-input post_cb" value="Tugas" name="post_cb" id="tugas_cb">
 										<label for="tugas_cb" class="form-check-label">Tugas</label>
 									</div>
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" value="" id="materi_cb">
+										<input type="checkbox" class="form-check-input post_cb" value="Materi" name="post_cb" id="materi_cb">
 										<label for="materi_cb" class="form-check-label">Materi</label>
 									</div>
-									<button class="btn btn-primary">Filter</button>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input post_cb" value="Info" name="post_cb" id="info_cb">
+										<label for="info_cb" class="form-check-label">Info</label>
+									</div>
+									<button class="btn btn-primary" id="post_filter">Filter</button>
 								</div>
 							</div>
 						</div>
@@ -78,16 +78,17 @@
 								<div class="row align-items-center mx-0 py-2">
 									<div class="col-1 p-0">
 										<div class="card">
-											<div class="card-body px-4">
-												<img class="img-fluid" src="https://mpng.subpng.com/20180421/fze/kisspng-pdf-computer-icons-adobe-acrobat-encapsulated-post-pdf-5adb3ce756e566.3416932315243174153559.jpg" alt="">
+											<div class="card-body px-3">
+												<i class="fas fa-paperclip fa-2x col-lg-1 align-self-center text-center"></i>
 											</div>
 										</div>
 									</div>
-									<div class="col-11 p-0">
+									<div class="col-11 px-1">
 										<div class="card">
 											<div class="card-body px-4 py-1">
-												<p class="card-text mb-1">File.pdf</p>
-												<span class="card-text"><b>Document</b></span>
+												<!-- <a href="<?= site_url('pengajar/dop/' . $cls_id . '/subject/' . $materi['attachment']) ?>" target="_blank"> -->
+												<!-- <?= $materi['attachment'] ?> -->s
+												<!-- </a> -->
 											</div>
 										</div>
 									</div>
@@ -118,7 +119,7 @@
 
 							<?php foreach ((array)$list as $key => $value) { ?>
 
-						<div id="classwork_item_1" class="mt-2 classwork_item">
+						<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>">
 							<div class="card">
 								<div class="row g-0">
 									<div class="col-lg-2 align-self-center">
@@ -356,4 +357,12 @@
 		$("#pengumuman").show();
 		$("#pengumuman").attr("style", "");
 	}
+
+	$("#post_filter").click(function() {
+		$('.all_post').hide();
+		$('input[name="post_cb"]:checked').each(function() {
+			console.log(this.value);
+			$('.post_' + this.value).show();
+		});
+	});
 </script>
