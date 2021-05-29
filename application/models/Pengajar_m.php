@@ -1,5 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Class_m extends CI_Model
+class Pengajar_m extends CI_Model
 {
 
   function __construct()
@@ -19,6 +19,7 @@ class Class_m extends CI_Model
     return $this->db->get("cls_main");
   }
 
+
   public function getClassByUser($user)
   {
 
@@ -26,6 +27,7 @@ class Class_m extends CI_Model
 
     return $this->db->get("cls_participant");
   }
+
 
   public function getClassByTeacher($user)
   {
@@ -35,17 +37,20 @@ class Class_m extends CI_Model
     return $this->db->get("cls_main");
   }
 
+
   public function insertSubject($input)
   {
     $this->db->insert("cls_subject", $input);
     return $this->db->affected_rows();
   }
 
+
   public function insertAssignment($input)
   {
     $this->db->insert("cls_assignment", $input);
     return $this->db->affected_rows();
   }
+
 
   public function getAssignment($id = "", $cls = "")
   {
@@ -58,6 +63,7 @@ class Class_m extends CI_Model
     return $this->db->get("cls_assignment");
   }
 
+
   public function getSubject($id = "", $cls = "")
   {
     if (!empty($id)) {
@@ -68,6 +74,7 @@ class Class_m extends CI_Model
     }
     return $this->db->get("cls_subject");
   }
+
 
   public function getTopic($cls = "", $type = "")
   {
@@ -80,9 +87,17 @@ class Class_m extends CI_Model
     return $this->db->get("vw_cls_topic");
   }
 
+
   public function updateSubject($id, $data)
   {
     $this->db->where(['id' => $id])->update("cls_subject", $data);
+    return $this->db->affected_rows();
+  }
+
+
+  public function deleteSubject($id)
+  {
+    $this->db->where(['id' => $id])->delete("cls_subject");
     return $this->db->affected_rows();
   }
 }

@@ -31,14 +31,14 @@
 								<label class="pt-2 px-2" for="" style="font-weight: bold;">Create New</label>
 								<div class="row px-4 py-2" s>
 									<form action="<?= site_url('pengajar/createMateri') ?>" method="POST">
-										<input type="hidden" name="class_id" value="<?= $this->uri->segment(3) ?>">
+										<input type="hidden" name="class_id" value="<?= $cls_id ?>">
 										<button type="submit" value="subject" class="btn btn-primary my-1">
 											Create Materi <span><i class="fas fa-plus"></i></span>&nbsp;
 										</button>
 										<br>
 									</form>
 									<form action="<?= site_url('pengajar/createTugas') ?>" method="POST">
-										<input type="hidden" name="class_id" value="<?= $this->uri->segment(3) ?>">
+										<input type="hidden" name="class_id" value="<?= $cls_id ?>">
 										<button type="submit" value="assignment" class="btn btn-primary my-1" type="button">
 											Create Tugas <span><i class="fas fa-plus"></i></span> &nbsp;
 										</button>
@@ -139,8 +139,8 @@
 												<i class="fas fa-ellipsis-v"></i>
 											</a>
 											<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												<li><a class="dropdown-item" href="<?= site_url('pengajar/edit' . $value['type'] . '/' . $this->aes->redmoon($value['id'])) ?>">Edit</a></li>
-												<li><a class="dropdown-item" href="#">Delete</a></li>
+												<li><a class="dropdown-item" href="<?= site_url('pengajar/edit' . $value['type'] . '/' . $cls_id . '.' .  $this->aes->redmoon($value['id'])) ?>">Edit</a></li>
+												<li><a class="dropdown-item" href="<?= site_url('pengajar/delete' . $value['type'] . '/' . $cls_id . '.' .  $this->aes->redmoon($value['id'])) ?>" onclick="return confirm('Apakah anda yakin akan menghapus?')">Delete</a></li>
 											</ul>
 										</div>
 									</div>
