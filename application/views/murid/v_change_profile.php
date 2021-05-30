@@ -7,13 +7,13 @@
       <div class="row mb-3">
         <div class="col">
           <div class="form-floating">
-            <input value="ISIII" type="text" class="form-control" placeholder="Nama">
+            <input value="<?= $profile['fullname'] ?>" type="text" class="form-control" placeholder="Nama">
             <label for="" class="form-label">Nama</label>
           </div>
         </div>
         <div class="col">
           <div class="form-floating">
-            <input value="ISIII" type="email" class="form-control" placeholder="Email">
+            <input value="<?= $profile['email'] ?>" type="email" class="form-control" placeholder="Email">
             <label for="" class="form-label">Email</label>
           </div>
         </div>
@@ -21,21 +21,21 @@
       <div class="row mb-3">
         <div class="col">
           <div class="form-floating">
-            <input value="ISIII" type="text" class="form-control" placeholder="Nomor Handphone">
+            <input value="<?= $profile['phone'] ?>" type="text" class="form-control" placeholder="Nomor Handphone">
             <label for="" class="form-label">No. Handphone</label>
           </div>
         </div>
         <div class="col">
           <div class="form-floating">
-            <input id="tgl_lahir" value="ISIII" type="text" class="form-control" placeholder="Tanggal Lahir">
+            <input id="tgl_lahir" value="<?= $profile['birthdate'] ?>" type="text" class="form-control" placeholder="Tanggal Lahir">
             <label for="" class="form-label">Tanggal Lahir</label>
           </div>
         </div>
         <div class="col">
           <div class="form-floating">
-            <select name="jekel" id="jekel" class="form-select">
+            <select name="jekel" id="jekel" class="form-select" value="<?= $profile['gender'] ?>">
               <option disabled>Pilih Jenis Kelamin</option>
-              <option selected value="L">Laki-laki</option>
+              <option value="L">Laki-laki</option>
               <option value="P">Perempuan</option>
             </select>
             <label for="" class="form-label">Jenis Kelamin</label>
@@ -45,7 +45,7 @@
       <div class="row">
         <div class="col">
           <div class="form-floating">
-            <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat">Penggilingan, Jakarta Timur, DKI Jakarta, Indonesia</textarea>
+            <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat"><?= $profile['address'] ?></textarea>
             <label for="" class="form-label">Alamat</label>
           </div>
         </div>

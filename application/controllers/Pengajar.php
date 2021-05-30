@@ -8,6 +8,9 @@ class Pengajar extends Core_Controller
     $this->load->model(['User_m', 'Pengajar_m']);
     // $this->load->library('email');
     $this->load->helper("security");
+    if ($this->session->userdata('type') != 'teacher') {
+      redirect('auth');
+    }
   }
 
 
@@ -246,7 +249,11 @@ class Pengajar extends Core_Controller
   {
     // $data = [];
     $user_id = $this->session->userdata('user_id');
+
     $data['profile'] = $this->User_m->getProfile($user_id)->row_array();
+
+    $birthdate_str = date_format(new DateTime($data['profile']['birthdate']), 'd M Y');
+    $data['profile']['birthdate'] = $birthdate_str;
     $this->template("pengajar/v_change_profile", "Change Profile", $data);
   }
 
