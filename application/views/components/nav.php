@@ -36,6 +36,10 @@
 				</li> -->
 			</ul>
 			<div class="d-flex">
+        <?php
+        $url = explode("/", $_SERVER['REQUEST_URI']);
+        if($url[count($url)-1] == 'pengajar' || $url[count($url)-1] == 'murid') { 
+        ?>
 				<div class="nav-link align-self-center">
 					<button class="btn text-primary" data-bs-toggle="modal" data-bs-target="
 						<?php if ($this->session->userdata('type') == 'teacher') {
@@ -47,6 +51,7 @@
 						<i class="fa fa-plus-circle fa-2x"></i>
 					</button>
 				</div>
+        <?php } ?>
 				<?php
 				if ($this->session->userdata('type') == 'teacher') {
 				} else {
@@ -93,12 +98,11 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary">Create</button>
+				<button id="create_class" type="button" class="btn btn-primary" onclick="createClass()">Create</button>
 			</div>
 		</div>
 	</div>
 </div>
-
 <div id="join_class" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="join_class" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -109,12 +113,38 @@
 			<div class="modal-body">
 				<div id="class_name">
 					<label for="" class="form-label">Class Code</label>
-					<input type="text" class="form-control" placeholder="Name">
+					<input id="class_code" type="text" class="form-control" placeholder="Name">
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary">Join</button>
+				<button id="join_class" type="button" class="btn btn-primary" onclick="joinClass($('#class_code').val())">Join</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="success" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="success" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div id="alert_succ" class="alert-success"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="fail" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fail" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div id="alert_fail" class="alert-danger"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
 			</div>
 		</div>
 	</div>

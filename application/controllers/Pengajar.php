@@ -257,6 +257,33 @@ class Pengajar extends Core_Controller
     $this->template("pengajar/v_change_profile", "Change Profile", $data);
   }
 
+  public function submitChangeProfile()
+  {
+    $post = $this->input->post();
+    $user_id = $this->session->userdata('user_id');
+
+    $ins = [
+      'email'     => $post['email'],
+      'fullname'  => $post['fullname'],
+      'phone'     => $post['phone'],
+      'address'   => $post['alamat'],
+      'gender'    => $post['gender'],
+      'birthdate' => $post['birthdate'],
+    ];
+
+    // print_r($_FILES);
+    if (!empty($_FILES['profile_pict']['name'])) {
+      // echo "This";
+      // $dir = $post['class_id'] . "_subject";
+      $dir = $post['email'] . "_pict";
+      $this->session->set_userdata("dir_upload", $dir);
+      $upload = $this->ups('profile_pict');
+      $ins['picture'] = $upload;
+    }
+    print_r($ins);
+    die();
+  }
+
   public function submitEditTugas()
   {
     $post = $this->input->post();

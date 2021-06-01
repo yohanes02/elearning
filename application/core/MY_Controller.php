@@ -28,6 +28,8 @@ class Core_Controller extends CI_Controller
     $dir = $root . "/uploads/" . $loc;
     $dir = str_replace(array("\\", "//"), "/", $dir);
 
+    // print_r($dir);
+
     $temn = $_FILES[$input]['tmp_name'];
 
     if (!file_exists($dir)) {
