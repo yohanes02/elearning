@@ -25,8 +25,11 @@ class Pengajar extends Core_Controller
   public function kelas($class_id)
   {
     $cls = $this->aes->bluesun($class_id);
+
     $data['cls_id'] = $class_id;
     $data['cls'] = $this->Class_m->getClass($cls)->row_array();
+    $data['asg'] = $this->Pengajar_m->getAssignment("", $cls)->result_array();
+    $data['std'] = $this->Class_m->getParticipant("", $cls)->result_array();
 
     $this->db->order_by("created_date", "desc");
     $data['list'] = $this->Class_m->getTopic($cls)->result_array();
@@ -56,7 +59,7 @@ class Pengajar extends Core_Controller
     $tgs_id = $this->aes->bluesun($x[1]);
 
     $data['type'] = [
-      'tugas'  => 'Tugas',
+      'tugas' => 'Tugas',
       'quiz'  => 'Quiz',
       'uts'   => 'UTS',
       'uas'   => 'UAS'

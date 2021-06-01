@@ -28,7 +28,7 @@ class Pengajar_m extends CI_Model
       $this->db->where(['id' => $id]);
     }
     if (!empty($cls)) {
-      $this->db->where(['cls' => $cls]);
+      $this->db->where(['cls_id' => $cls]);
     }
     return $this->db->get("cls_assignment");
   }

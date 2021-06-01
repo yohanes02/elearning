@@ -49,4 +49,17 @@ class Class_m extends CI_Model
     }
     return $this->db->get("vw_cls_topic");
   }
+
+  public function getParticipant($std, $cls)
+  {
+    if (!empty($std)) {
+      $this->db->where(['student_id' => $std]);
+    }
+    if (!empty($cls)) {
+      $this->db->where(['cls_id' => $cls]);
+    }
+
+    $this->db->join("adm_user u",  "u.id=p.student_id", "left");
+    return $this->db->get("cls_participant p");
+  }
 }
