@@ -5,7 +5,7 @@ class Pengajar extends Core_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->model(['User_m', 'Pengajar_m']);
+    $this->load->model(['User_m', 'Pengajar_m', 'Class_m']);
     // $this->load->library('email');
     $this->load->helper("security");
     if ($this->session->userdata('type') != 'teacher') {
@@ -16,7 +16,7 @@ class Pengajar extends Core_Controller
 
   public function index()
   {
-    $data['class_list'] = $this->Pengajar_m->getClassByTeacher(1)->result_array();
+    $data['class_list'] = $this->Class_m->getClassByTeacher(1)->result_array();
 
     $this->template("pengajar/v_daftar_kelas", "Pengajar", $data);
   }
@@ -25,11 +25,14 @@ class Pengajar extends Core_Controller
   public function kelas($class_id)
   {
     $cls = $this->aes->bluesun($class_id);
+
     $data['cls_id'] = $class_id;
-    $data['cls'] = $this->Pengajar_m->getClass($cls)->row_array();
+    $data['cls'] = $this->Class_m->getClass($cls)->row_array();
+    $data['asg'] = $this->Pengajar_m->getAssignment("", $cls)->result_array();
+    $data['std'] = $this->Class_m->getParticipant("", $cls)->result_array();
 
     $this->db->order_by("created_date", "desc");
-    $data['list'] = $this->Pengajar_m->getTopic($cls)->result_array();
+    $data['list'] = $this->Class_m->getTopic($cls)->result_array();
 
     $this->template("pengajar/v_kelas", "Kelas", $data);
   }
@@ -40,7 +43,7 @@ class Pengajar extends Core_Controller
     $cls = $this->input->post('class_id');
 
     $data['type'] = [
-      'tugas'  => 'Tugas',
+      'tugas' => 'Tugas',
       'quiz'  => 'Quiz',
       'uts'   => 'UTS',
       'uas'   => 'UAS'
@@ -56,7 +59,7 @@ class Pengajar extends Core_Controller
     $tgs_id = $this->aes->bluesun($x[1]);
 
     $data['type'] = [
-      'tugas'  => 'Tugas',
+      'tugas' => 'Tugas',
       'quiz'  => 'Quiz',
       'uts'   => 'UTS',
       'uas'   => 'UAS'
@@ -139,9 +142,9 @@ class Pengajar extends Core_Controller
     $cls = $this->aes->bluesun($post['class_id']);
 
     $ins = [
-      'cls_id'         => $cls,
+      'cls_id'        => $cls,
       'title'         => $post['title_materi'],
-      'desc'           => $post['description_materi'],
+      'desc'          => $post['description_materi'],
       'created_date'  => date("Y-m-d H:i:s"),
       'creator_id'    => 1,
       'creator_name'  => 'Ana'
@@ -177,9 +180,9 @@ class Pengajar extends Core_Controller
     $cls = $this->aes->bluesun($post['class_id']);
 
     $ins = [
-      'cls_id'         => $cls,
+      'cls_id'        => $cls,
       'title'         => $post['title_tugas'],
-      'desc'           => $post['description_tugas'],
+      'desc'          => $post['description_tugas'],
       'type'          => $post['tipe_tugas'],
       'due_date'      => str_replace('T', ' ', $post['due_date']),
       'created_date'  => date("Y-m-d H:i:s"),
@@ -218,7 +221,7 @@ class Pengajar extends Core_Controller
 
     $ins = [
       'title'         => $post['title_materi'],
-      'desc'           => $post['description_materi'],
+      'desc'          => $post['description_materi'],
       'creator_id'    => 1,
       'creator_name'  => 'Ana'
     ];
@@ -292,7 +295,7 @@ class Pengajar extends Core_Controller
 
     $ins = [
       'title'         => $post['title_tugas'],
-      'desc'           => $post['description_tugas'],
+      'desc'          => $post['description_tugas'],
       'type'          => $post['tipe_tugas'],
       'due_date'      => str_replace('T', ' ', $post['due_date']),
       'creator_id'    => 1,

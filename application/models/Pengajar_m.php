@@ -8,36 +8,6 @@ class Pengajar_m extends CI_Model
   }
 
 
-  public function getClass($id = "", $code = "")
-  {
-    if (!empty($id)) {
-      $this->db->where(['id' => $id]);
-    }
-    if (!empty($code)) {
-      $this->db->where(['code' => $code]);
-    }
-    return $this->db->get("cls_main");
-  }
-
-
-  public function getClassByUser($user)
-  {
-
-    $this->db->where(['id' => $user]);
-
-    return $this->db->get("cls_participant");
-  }
-
-
-  public function getClassByTeacher($user)
-  {
-
-    $this->db->where(['owner_id' => $user]);
-
-    return $this->db->get("cls_main");
-  }
-
-
   public function insertSubject($input)
   {
     $this->db->insert("cls_subject", $input);
@@ -58,7 +28,7 @@ class Pengajar_m extends CI_Model
       $this->db->where(['id' => $id]);
     }
     if (!empty($cls)) {
-      $this->db->where(['cls' => $cls]);
+      $this->db->where(['cls_id' => $cls]);
     }
     return $this->db->get("cls_assignment");
   }
@@ -73,18 +43,6 @@ class Pengajar_m extends CI_Model
       $this->db->where(['cls' => $cls]);
     }
     return $this->db->get("cls_subject");
-  }
-
-
-  public function getTopic($cls = "", $type = "")
-  {
-    if (!empty($type)) {
-      $this->db->where(['type' => $type]);
-    }
-    if (!empty($cls)) {
-      $this->db->where(['cls_id' => $cls]);
-    }
-    return $this->db->get("vw_cls_topic");
   }
 
 

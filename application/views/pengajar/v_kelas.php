@@ -165,12 +165,11 @@
 										<label for="tugas_list" class="form-label">Tugas</label>
 										<select name="tugas_list" id="tugas_list" class="form-select">
 											<option selected disabled>Pilih Tugas</option>
-											<option value="tugas_1">Tugas 1</option>
-											<option value="tugas_2">Tugas 2</option>
-											<option value="tugas_3">Tugas 3</option>
+											<?php foreach ((array) $asg as $k => $v) { ?>
+												<option value="<?= $v['id'] ?>"><?= $v['title'] ?></option>
+											<?php } ?>
 										</select>
 									</div>
-									<!-- <br> -->
 									<div class="mb-3">
 										<label for="sort_status" class="form-label">Sort</label>
 										<select name="sort_status" id="sort_status" class="form-select">
@@ -256,60 +255,24 @@
 					<thead>
 						<tr>
 							<td></td>
-							<td class="text-center">
-								<span>Tugas 1</span>
-								<br>
-								<span>28 Mei</span>
-							</td>
-							<td class="text-center">
-								<span>Tugas 2</span>
-								<br>
-								<span>28 Mei</span>
-							</td>
-							<td class="text-center">
-								<span>Tugas 3</span>
-								<br>
-								<span>28 Mei</span>
-							</td>
-							<td class="text-center">
-								<span>Tugas 4</span>
-								<br>
-								<span>28 Mei</span>
-							</td>
-							<td class="text-center">
-								<span>Tugas 5</span>
-								<br>
-								<span>28 Mei</span>
-							</td>
-							<td class="text-center">
-								<span>Tugas 6</span>
-								<br>
-								<span>28 Mei</span>
-							</td>
-							<td class="text-center">
-								<span>Tugas 7</span>
-								<br>
-								<span>28 Mei</span>
-							</td>
-							<td class="text-center">
-								<span>Tugas 8</span>
-								<br>
-								<span>28 Mei</span>
-							</td>
+							<?php foreach ((array) $asg as $k => $v) { ?>
+								<td width="<?php echo 100 / (count($asg) + 1) ?>%" class="text-center" style="vertical-align: middle;">
+									<span><?= $v['title'] ?></span>
+									<br>
+									<!-- <span><?= $v['due_date'] ?></span> -->
+								</td>
+							<?php } ?>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td width="250px">Yohanes</td>
-							<td class="text-center">100</td>
-							<td class="text-center">100</td>
-							<td class="text-center">100</td>
-							<td class="text-center">100</td>
-							<td class="text-center">100</td>
-							<td class="text-center">100</td>
-							<td class="text-center">100</td>
-							<td class="text-center">100</td>
-						</tr>
+						<?php foreach ($std as $key => $value) { ?>
+							<tr>
+								<td class="text-center" style="vertical-align: middle;"><?= $value['fullname'] ?></td>
+								<td class="text-center">
+									100
+								</td>
+							</tr>
+						<?php } ?>
 					</tbody>
 				</table>
 			</div>
