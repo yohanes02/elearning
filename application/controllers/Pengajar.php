@@ -16,7 +16,7 @@ class Pengajar extends Core_Controller
 
   public function index()
   {
-    $data['class_list'] = $this->Class_m->getClassByTeacher(1)->result_array();
+    $data['class_list'] = $this->Class_m->getClassByTeacher($this->session->userdata('user_id'))->result_array();
 
     $this->template("pengajar/v_daftar_kelas", "Pengajar", $data);
   }
@@ -146,8 +146,8 @@ class Pengajar extends Core_Controller
       'title'         => $post['title_materi'],
       'desc'          => $post['description_materi'],
       'created_date'  => date("Y-m-d H:i:s"),
-      'creator_id'    => 1,
-      'creator_name'  => 'Ana'
+      'creator_id'    => $this->session->userdata('user_id'),
+      'creator_name'  => $this->session->userdata('name')
     ];
 
     if (!empty($_FILES['file_materi']['name'])) {
@@ -186,8 +186,8 @@ class Pengajar extends Core_Controller
       'type'          => $post['tipe_tugas'],
       'due_date'      => str_replace('T', ' ', $post['due_date']),
       'created_date'  => date("Y-m-d H:i:s"),
-      'creator_id'    => 1,
-      'creator_name'  => 'Ana'
+      'creator_id'    => $this->session->userdata('user_id'),
+      'creator_name'  => $this->session->userdata('name')
     ];
 
     if (!empty($_FILES['file_tugas']['name'])) {
@@ -222,8 +222,8 @@ class Pengajar extends Core_Controller
     $ins = [
       'title'         => $post['title_materi'],
       'desc'          => $post['description_materi'],
-      'creator_id'    => 1,
-      'creator_name'  => 'Ana'
+      'creator_id'    => $this->session->userdata('user_id'),
+      'creator_name'  => $this->session->userdata('name')
     ];
 
     if (!empty($_FILES['file_materi']['name'])) {
@@ -298,8 +298,8 @@ class Pengajar extends Core_Controller
       'desc'          => $post['description_tugas'],
       'type'          => $post['tipe_tugas'],
       'due_date'      => str_replace('T', ' ', $post['due_date']),
-      'creator_id'    => 1,
-      'creator_name'  => 'Ana'
+      'creator_id'    => $this->session->userdata('user_id'),
+      'creator_name'  => $this->session->userdata('name')
     ];
 
     if (!empty($_FILES['file_tugas']['name'])) {
@@ -322,5 +322,83 @@ class Pengajar extends Core_Controller
     }
 
     redirect('pengajar/kelas/' . $post['class_id']);
+  }
+
+  public function submitInfo()
+  {
+    $post = $this->input->post();
+
+    $cls = $this->aes->bluesun($post['class_id']);
+    $ttl = strip_tags($post['content']);
+
+    $ins = [
+      'cls_id'        => $cls,
+      'title'         => $ttl > 50 ? substr($ttl, 0, 50) . "..." : $ttl,
+      'desc'          => $post['content'],
+      'created_date'  => date("Y-m-d H:i:s"),
+      'creator_id'    => $this->session->userdata('user_id'),
+      'creator_name'  => $this->session->userdata('name')
+    ];
+
+    if (!empty($_FILES['file_attach']['name'])) {
+      $dir = $post['class_id'] . "_info";
+      $this->session->set_userdata("dir_upload", $dir);
+      $upload = $this->ups("file_attach");
+      $ins['attachment'] = $upload;
+    }
+
+    $this->db->trans_begin();
+
+    $this->Pengajar_m->insertInfo($ins);
+
+    if ($this->db->trans_status() !== FALSE) {
+      $this->db->trans_commit();
+      echo json_encode(['respon' => "ok"], true);
+    } else {
+      $this->db->trans_rollback();
+      echo json_encode(['respon' => "no"], true);
+    }
+  }
+
+  public function getPost($enc)
+  {
+
+    $cls = $this->aes->bluesun($enc);
+
+    $this->db->order_by("created_date", "desc");
+    $list = $this->Class_m->getTopic($cls)->result_array();
+    foreach ($list as $key => $value) {
+
+      if ($value['type'] == 'Info') {
+        $list[$key]['link_edit'] = "";
+      } else {
+        $list[$key]['link_edit'] =  '<li><a class="dropdown-item" href="' . site_url('pengajar/edit' . $value['type'] . '/' . $enc . '.' .  $this->aes->redmoon($value['id'])) . '">Edit</a></li>';
+      }
+
+      $list[$key]['link_delete'] = '<li><a class="dropdown-item" href="' . site_url('pengajar/delete' . $value['type'] . '/' . $enc . '.' .  $this->aes->redmoon($value['id'])) . '">Delete</a></li>';
+    }
+    echo json_encode($list, true);
+  }
+
+
+
+  public function deleteInfo($enc)
+  {
+
+    $x = explode(".", $enc);
+    $inf_id = $this->aes->bluesun($x[1]);
+
+    $this->db->trans_begin();
+
+    $this->Pengajar_m->deleteInfo($inf_id);
+
+    if ($this->db->trans_status() !== FALSE) {
+      $this->db->trans_commit();
+      $this->session->set_userdata('result', 'Sukses menghapus info');
+    } else {
+      $this->db->trans_rollback();
+      $this->session->set_userdata('result', 'Gagal menghapus info');
+    }
+    redirect('pengajar/kelas/' . $x[0]);
   }
 }

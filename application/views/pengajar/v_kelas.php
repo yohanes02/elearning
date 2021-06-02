@@ -68,42 +68,27 @@
 						</div>
 					</div>
 					<div class="col-lg-9">
-						<div id="pengumuman" class="input-group shadow-sm">
-							<span class="input-group-text px-4 py-3 border-end-0" id="basic-addon2" style="background-color: transparent;"><img src="http://localhost/remedial-online/assets/teacher.png" alt="" width="40"></span>
-							<input type="text" class="form-control border-start-0 border-end-0" placeholder="Umumkan sesuatu ke kelas" onclick="useCKEditor()">
-							<span class="input-group-text px-4 border-start-0" id="basic-addon2" style="background-color: transparent;"><i class="fas fa-paper-plane"></i></span>
-						</div>
-						<div id="content_not_ck" class="border" style="display: none;">
-							<div class="container p-2">
-								<div class="row align-items-center mx-0 py-2">
-									<div class="col-1 p-0">
-										<div class="card">
-											<div class="card-body px-3">
-												<i class="fas fa-paperclip fa-2x col-lg-1 align-self-center text-center"></i>
-											</div>
-										</div>
-									</div>
-									<div class="col-11 px-1">
-										<div class="card">
-											<div class="card-body px-4 py-1">
-												<!-- <a href="<?= site_url('pengajar/dop/' . $cls_id . '/subject/' . $materi['attachment']) ?>" target="_blank"> -->
-												<!-- <?= $materi['attachment'] ?> -->s
-												<!-- </a> -->
-											</div>
+						<form name="form_announce" id="form_announce" action="">
+							<input type="hidden" name="class_id" value="<?= $cls_id ?>">
+							<div id="pengumuman" class="input-group shadow-sm">
+								<span class="input-group-text px-4 py-3 border-end-0" id="basic-addon2" style="background-color: transparent;"><img src="http://localhost/remedial-online/assets/teacher.png" alt="" width="40"></span>
+								<input type="text" id="xoo" class="form-control border-start-0 border-end-0" placeholder="Umumkan sesuatu ke kelas" onclick="useCKEditor()">
+								<span class="input-group-text px-4 border-start-0" id="basic-addon2" style="background-color: transparent;"><i class="fas fa-paper-plane"></i></span>
+							</div>
+							<div id="content_not_ck" class="border" style="display: none;">
+								<div class="container p-2">
+									<input type="file" name="file_announce" class="form-control m-0" id="file_upload" multiple onchange="showFileSelected()">
+								</div>
+								<div class="container m-0 p-0">
+									<div class="row m-0">
+										<div id="buttonCK" class="bg-light p-2">
+											<button id="submit_announce" class="btn bg-success text-white float-end">Kirim</button>
+											<button id="cancel_announce" class="btn border-0 float-end" onclick="hideContent()">Cancel</button>
 										</div>
 									</div>
 								</div>
-								<input type="file" class="form-control m-0" id="file_upload" multiple onchange="showFileSelected()">
 							</div>
-							<div class="container m-0 p-0">
-								<div class="row m-0">
-									<div id="buttonCK" class="bg-light p-2">
-										<button id=" submit_announce" class="btn bg-success text-white float-end">Kirim</button>
-										<button id="cancel_announce" class="btn border-0 float-end" onclick="hideContent()">Cancel</button>
-									</div>
-								</div>
-							</div>
-						</div>
+						</form>
 						<p>
 							<?php if (!empty($this->session->userdata('result'))) {
 								$res = $this->session->userdata('result');
@@ -116,39 +101,42 @@
 											';
 								echo $msg;
 							}	?>
-
+						<div id="list_post">
 							<?php foreach ((array)$list as $key => $value) { ?>
 
-						<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>">
-							<div class="card">
-								<div class="row g-0">
-									<div class="col-lg-2 align-self-center">
-										<div class="text-center">
-											<span><i class="fas <?= $value['icon'] ?> fa-3x"></i></span>
-										</div>
-									</div>
-									<div class="col-lg-9">
-										<div class="my-1">
-											<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
-											<p><small><?= $value['creator_name'] ?></small></p>
-											<span class="card-text"><small><?= $value['created_date'] ?></small></span>
-										</div>
-									</div>
-									<div class="col-lg-1 text-center align-self-center">
-										<div class="dropdown">
-											<a class="btn" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-												<i class="fas fa-ellipsis-v"></i>
-											</a>
-											<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												<li><a class="dropdown-item" href="<?= site_url('pengajar/edit' . $value['type'] . '/' . $cls_id . '.' .  $this->aes->redmoon($value['id'])) ?>">Edit</a></li>
-												<li><a class="dropdown-item" href="<?= site_url('pengajar/delete' . $value['type'] . '/' . $cls_id . '.' .  $this->aes->redmoon($value['id'])) ?>" onclick="return confirm('Apakah anda yakin akan menghapus?')">Delete</a></li>
-											</ul>
+								<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>">
+									<div class="card">
+										<div class="row g-0">
+											<div class="col-lg-2 align-self-center">
+												<div class="text-center">
+													<span><i class="fas <?= $value['icon'] ?> fa-3x"></i></span>
+												</div>
+											</div>
+											<div class="col-lg-9">
+												<div class="my-1">
+													<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+													<p><small><?= $value['creator_name'] ?></small></p>
+													<span class="card-text"><small><?= $value['created_date'] ?></small></span>
+												</div>
+											</div>
+											<div class="col-lg-1 text-center align-self-center">
+												<div class="dropdown">
+													<a class="btn" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+														<i class="fas fa-ellipsis-v"></i>
+													</a>
+													<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+														<?php if ($value['type'] != 'Info') { ?>
+															<li><a class="dropdown-item" href="<?= site_url('pengajar/edit' . $value['type'] . '/' . $cls_id . '.' .  $this->aes->redmoon($value['id'])) ?>">Edit</a></li>
+														<?php } ?>
+														<li><a class="dropdown-item" href="<?= site_url('pengajar/delete' . $value['type'] . '/' . $cls_id . '.' .  $this->aes->redmoon($value['id'])) ?>" onclick="return confirm('Apakah anda yakin akan menghapus?')">Delete</a></li>
+													</ul>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							<?php } ?>
 						</div>
-					<?php } ?>
 					</div>
 				</div>
 			</div>
@@ -283,9 +271,9 @@
 
 <script src="<?php echo base_url('assets/lib/jquery-3.6.0.min.js'); ?>" charset="utf-8"></script>
 <script>
-	$("#submit_announce").click(function() {
-		console.log($("#file_upload"));
-	});
+	// $("#submit_announce").click(function() {
+	// 	console.log($("#file_upload"));
+	// });
 
 	function useCKEditor() {
 		// $("#pengumuman").ckeditor();
@@ -328,4 +316,111 @@
 			$('.post_' + this.value).show();
 		});
 	});
+
+
+	// $('#submit_btn').click(function() {
+	// 	var formData = new FormData($('#contactform'));
+	// 	$.ajax({
+	// 		type: 'POST',
+	// 		url: '/contact.php',
+	// 		// dataType: "json",
+	// 		data: formData,
+	// 		processData: false,
+	// 		contentType: false,
+	// 		success: function(data) {
+
+	// 			console.log(data.type);
+	// 			console.log(data.msg);
+
+	// 			var nClass = data.type;
+	// 			var nTxt = data.msg;
+
+	// 			$("#notice").attr('class', 'alert alert-' + nClass).text(nTxt).remove('hidden');
+	// 			//reset fields if success
+	// 			if (nClass != 'danger') {
+	// 				$('#contactform input').val('');
+	// 				$('#contactform textarea').val('');
+	// 			}
+
+	// 		}
+	// 	});
+	// 	return false;
+	// });
+
+	$('#form_announce').submit(function(e) {
+		e.preventDefault();
+		// refreshPost(1);
+		var m_data = new FormData();
+		m_data.append('file_attach', $('input[name=file_announce]')[0].files[0]);
+		m_data.append('content', CKEDITOR.instances.pengumuman.getData());
+		m_data.append('class_id', '<?= $cls_id ?>');
+
+		$.ajax({
+			url: '<?= site_url("pengajar/submitInfo") ?>',
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType: 'json',
+			success: function(ret) {
+				if (ret.respon == "ok") {
+					refreshPost('<?= $cls_id ?>');
+					CKEDITOR.instances.pengumuman.setData('')
+					$('input[name=file_announce]').val('')
+				} else {
+					alert("gagal")
+				}
+			}
+		});
+
+	});
+
+	function refreshPost(cls) {
+		$.get("<?= site_url('pengajar/getPost') ?>" + '/' + cls, function(data) {
+			datapost = JSON.parse(data)
+			allpost = '<div class="alert alert-success alert-dismissible fade show" role="alert">\
+										Sukses membuat info\
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>\
+									</div>';
+
+			$('#list_post').html('')
+			console.log(datapost)
+			$.each(datapost, function(i, x) {
+				allpost += '<div id="classwork_item_1" class="mt-2 classwork_item all_post post_' + x.type + '">\
+											<div class="card">\
+												<div class="row g-0">\
+													<div class="col-lg-2 align-self-center">\
+														<div class="text-center">\
+															<span><i class="fas ' + x.icon + ' fa-3x"></i></span>\
+														</div>\
+													</div>\
+													<div class="col-lg-9">\
+														<div class="my-1">\
+															<span><b>' + x.type + ' : ' + x.title + '</b></span>\
+															<p><small>' + x.creator_name + '</small></p>\
+															<span class="card-text"><small>' + x.created_date + '</small></span>\
+														</div>\
+													</div>\
+													<div class="col-lg-1 text-center align-self-center">\
+														<div class="dropdown">\
+															<a class="btn" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">\
+																<i class="fas fa-ellipsis-v"></i>\
+															</a>\
+															<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">\
+																' + x.link_edit + '\
+																' + x.link_delete + '\
+															</ul>\
+														</div>\
+													</div>\
+												</div>\
+											</div>\
+										</div>'
+
+				console.log(allpost)
+			});
+			$('#list_post').html(allpost)
+
+		})
+
+	}
 </script>
