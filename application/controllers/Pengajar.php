@@ -401,4 +401,43 @@ class Pengajar extends Core_Controller
     }
     redirect('pengajar/kelas/' . $x[0]);
   }
+
+  public function createClass()
+  {
+
+    $post = $this->input->post();
+
+    $list = $this->Class_m->getClass("", "")->result_array();
+
+    do {
+      $code = $this->getClassCode(6);
+    } while (in_array($code, $list));
+
+    if (!empty($code)) {
+      $inp = [
+        'code'          => $code,
+        'name'          => $post['name'],
+        'desc'          => $post['desc'],
+        'owner_id'      => $this->session->userdata('user_id'),
+        'owner_name'    => $this->session->userdata('name'),
+        'created_date'  => date("Y-m-d H:i:s")
+      ];
+
+
+      $this->Class_m->createClass($inp);
+      $id = $this->aes->redmoon($this->db->insert_id());
+
+      $ret = array_merge($inp, ['cls_id' => $id]);
+
+      if ($this->db->trans_status() !== FALSE) {
+        $this->db->trans_commit();
+        echo json_encode(['status' => 'success', 'data' => $ret], true);
+      } else {
+        $this->db->trans_rollback();
+        echo json_encode(['status' => 'failed'], true);
+      }
+    } else {
+      echo json_encode(['status' => 'failed'], true);
+    }
+  }
 }

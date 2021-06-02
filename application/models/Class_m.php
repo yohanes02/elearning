@@ -50,6 +50,7 @@ class Class_m extends CI_Model
     return $this->db->get("vw_cls_topic");
   }
 
+
   public function getParticipant($std, $cls)
   {
     if (!empty($std)) {
@@ -61,5 +62,11 @@ class Class_m extends CI_Model
 
     $this->db->join("adm_user u",  "u.id=p.student_id", "left");
     return $this->db->get("cls_participant p");
+  }
+
+  public function createClass($inp)
+  {
+    $this->db->insert("cls_main", $inp);
+    return $this->db->affected_rows();
   }
 }

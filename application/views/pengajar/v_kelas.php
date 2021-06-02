@@ -384,7 +384,7 @@
 									</div>';
 
 			$('#list_post').html('')
-			console.log(datapost)
+
 			$.each(datapost, function(i, x) {
 				allpost += '<div id="classwork_item_1" class="mt-2 classwork_item all_post post_' + x.type + '">\
 											<div class="card">\
@@ -416,7 +416,6 @@
 											</div>\
 										</div>'
 
-				console.log(allpost)
 			});
 			$('#list_post').html(allpost)
 

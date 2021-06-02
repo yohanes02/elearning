@@ -1,5 +1,5 @@
 <div class="container py-5" style="min-height: calc(100vh - 70px)">
-	<div class="row align-content-center">
+	<div class="row align-content-center list_class">
 		<?php foreach ((array)$class_list as $key => $value) { ?>
 			<div class="col-lg-3 my-3" onclick="classDetail('<?= $this->aes->redmoon($value['id']) ?>')">
 				<div class="card border border-dark text-center">
