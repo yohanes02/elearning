@@ -61,7 +61,11 @@ class Murid extends Core_Controller
     }
     // die();
 
-    $data['avgNilai'] = $sum_grade / count($all_answer);
+    if (count($all_answer) == 0) {
+      $data['avgNilai'] = "-";
+    } else {
+      $data['avgNilai'] = $sum_grade / count($all_answer);
+    }
 
     $this->template("murid/v_kelas", "Kelas", $data);
   }

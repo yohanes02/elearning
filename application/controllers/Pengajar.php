@@ -349,6 +349,9 @@ class Pengajar extends Core_Controller
       $this->User_m->changePassword($id, $data);
 
       redirect('pengajar/changeProfile');
+    }
+  }
+  
   public function submitInfo()
   {
     $post = $this->input->post();
