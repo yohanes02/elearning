@@ -36,28 +36,8 @@
               <img class="img-thumbnail" src="https://mpng.subpng.com/20180421/fze/kisspng-pdf-computer-icons-adobe-acrobat-encapsulated-post-pdf-5adb3ce756e566.3416932315243174153559.jpg" alt="" style="width: 60px;">
             </div>
             <div class="col-lg-11 align-self-center">
-              <a href="<?= site_url('pengajar/dop/' . $cls_id . '/subject/' . $materi['attachment']) ?>">
+              <a href="<?= site_url('uploads/' . $cls_id . '/subject/' . $materi['attachment']) ?>">
                 <span><?= $materi['attachment'] ?></span>
-              </a>
-            </div>
-          </div>
-          <div id="lampiran_1" class="mt-3 row">
-            <div class="col-lg-1">
-              <img class="img-thumbnail" src="https://mpng.subpng.com/20180421/fze/kisspng-pdf-computer-icons-adobe-acrobat-encapsulated-post-pdf-5adb3ce756e566.3416932315243174153559.jpg" alt="" style="width: 60px;">
-            </div>
-            <div class="col-lg-11 align-self-center">
-              <a href="">
-                <span>Lampiran 1.pdf</span>
-              </a>
-            </div>
-          </div>
-          <div id="lampiran_2" class="mt-3 row">
-            <div class="col-lg-1">
-              <img class="img-thumbnail" src="https://mpng.subpng.com/20180421/fze/kisspng-pdf-computer-icons-adobe-acrobat-encapsulated-post-pdf-5adb3ce756e566.3416932315243174153559.jpg" alt="" style="width: 60px;">
-            </div>
-            <div class="col-lg-11 align-self-center">
-              <a href="">
-                <span>Lampiran 2.pdf</span>
               </a>
             </div>
           </div>

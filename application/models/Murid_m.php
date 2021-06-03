@@ -43,4 +43,29 @@ class Murid_m extends CI_Model
     $this->db->where(['id' => $id])->update("adm_user", $data);
     return $this->db->affected_rows();
   }
+
+  public function insertAnswer($input) {
+    $this->db->insert("cls_answer", $input);
+    return $this->db->affected_rows();
+  }
+
+  public function getAnswer($tgs_id, $std_id) {
+    $this->db->where(['student_id' => $std_id, 'assignment_id' => $tgs_id]);
+    return $this->db->get('cls_answer');
+  }
+
+  public function updateAnswer($id, $data) {
+    $this->db->where(['id' => $id])->update("cls_answer", $data);
+    return $this->db->affected_rows();
+  }
+
+  public function submitAnswer($id, $data) {
+    $this->db->where(['id' => $id])->update("cls_answer", $data);
+    return $this->db->affected_rows();
+  }
+
+  public function getAllAnswer($id, $cls_id) {
+    $this->db->where(['student_id' => $id, 'cls_id' => $cls_id]);
+    return $this->db->get('cls_answer');
+  }
 }

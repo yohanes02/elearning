@@ -143,8 +143,12 @@
                     </div>
                     <div class="col">
                       <div class="form-floating">
-                        <input type="email" class="form-control" name="email" placeholder="Email">
-                        <label for="" class="form-label">Email</label>
+                        <select name="gender" id="gender" class="form-select">
+                          <option selected disabled>Pilih Jenis Kelamin</option>
+                          <option value="m">Laki-laki</option>
+                          <option value="f">Perempuan</option>
+                        </select>
+                        <label for="" class="form-label">Jenis Kelamin</label>
                       </div>
                     </div>
                   </div>
@@ -161,16 +165,7 @@
                         <label for="" class="form-label">Tanggal Lahir</label>
                       </div>
                     </div>
-                    <div class="col">
-                      <div class="form-floating">
-                        <select name="gender" id="gender" class="form-select">
-                          <option selected disabled>Pilih Jenis Kelamin</option>
-                          <option value="m">Laki-laki</option>
-                          <option value="f">Perempuan</option>
-                        </select>
-                        <label for="" class="form-label">Jenis Kelamin</label>
-                      </div>
-                    </div>
+                    
                   </div>
                   <div class="row">
                     <div class="col">
@@ -184,27 +179,13 @@
                 <div class="mb-3">
                   <h6><b>Account</b></h6>
                   <div class="row mb-3">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                       <div class="form-floating">
-                        <input type="text" class="form-control" name="username" placeholder="Username">
-                        <label for="" class="form-label">Username</label>
+                        <input type="email" class="form-control" name="email" placeholder="Email">
+                        <label for="" class="form-label">Email</label>
                       </div>
                     </div>
-                    <div class="col-lg-4">
-                      <div class="form-floating">
-                        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-                        <label for="" class="form-label">Password</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-floating">
-                        <input id="repassword" type="password" class="form-control" placeholder="Retype Password">
-                        <label for="" class="form-label">Retype Password</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                       <div class="form-floating">
                         <select name="type" id="type" class="form-select">
                           <option selected disabled>Choose Type</option>
@@ -212,6 +193,20 @@
                           <option value="s">Student</option>
                         </select>
                         <label for="" class="form-label">Accoount Type</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-lg-6">
+                      <div class="form-floating">
+                        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                        <label for="" class="form-label">Password</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-floating">
+                        <input id="repassword" type="password" class="form-control" placeholder="Retype Password">
+                        <label for="" class="form-label">Retype Password</label>
                       </div>
                     </div>
                   </div>

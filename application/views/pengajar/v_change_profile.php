@@ -13,8 +13,12 @@
         </div>
         <div class="col">
           <div class="form-floating">
-            <input value="<?= $profile['email'] ?>" name="email" type="email" class="form-control" placeholder="Email">
-            <label for="" class="form-label">Email</label>
+            <select name="gender" id="gender" class="form-select" value="<?= $profile['gender'] ?>">
+              <option disabled>Pilih Jenis Kelamin</option>
+              <option value="m">Laki-laki</option>
+              <option value="f">Perempuan</option>
+            </select>
+            <label for="" class="form-label">Jenis Kelamin</label>
           </div>
         </div>
       </div>
@@ -29,16 +33,6 @@
           <div class="form-floating">
             <input id="tgl_lahir" value="<?= $profile['birthdate'] ?>" name="birthdate" type="text" class="form-control" placeholder="Tanggal Lahir">
             <label for="" class="form-label">Tanggal Lahir</label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-floating">
-            <select name="gender" id="gender" class="form-select" value="<?= $profile['gender'] ?>">
-              <option disabled>Pilih Jenis Kelamin</option>
-              <option value="m">Laki-laki</option>
-              <option value="f">Perempuan</option>
-            </select>
-            <label for="" class="form-label">Jenis Kelamin</label>
           </div>
         </div>
       </div>
@@ -56,13 +50,13 @@
       <div class="row mb-3">
         <div class="col-lg-6">
           <div class="form-floating">
-            <input value="ISIII" type="text" class="form-control" placeholder="Username">
-            <label for="" class="form-label">Username</label>
+            <input value="<?= $profile['email'] ?>" name="email" type="email" class="form-control" placeholder="Email">
+            <label for="" class="form-label">Email</label>
           </div>
         </div>
         <div class="col-lg-6">
           <!-- <div class="form-floating"> -->
-          <button class="btn btn-primary h-100">Change Password</button>
+          <div class="btn btn-primary h-100" style="padding: .85rem" data-bs-toggle="modal" data-bs-target="#change_password" style="box-shadow: none;">Change Password</div>
           <!-- </div> -->
           <!-- <div class="form-floating input-group">
 						<input value="ISIII" type="password" class="form-control border-end-0" placeholder="Password">
@@ -85,7 +79,11 @@
     </div>
     <div class="mb-3">
       <h6><b>Profile Picture</b></h6>
-      <img src="https://i.imgur.com/uNGdWHi.png" alt="profile_picture" class="img-fluid border border-2 p-2 mb-2" style="width: 200px;">
+      <?php if($profile['picture'] != null) { ?>
+      <img src="<?= site_url('uploads/'.$this->session->userdata('user_id').'/profile/'.$profile['picture']) ?>" alt="profile_picture" class="img-fluid border border-2 p-2 mb-2" style="height: 200px; width: 200px;">
+      <?php } else { ?>
+        <p>No Image</p>
+      <?php } ?>
       <input type="file" class="form-control" name="profile_pict" id="profile_pict">
     </div>
     <div class="mb-3">
@@ -104,9 +102,63 @@
     </div>
   </form>
 </div>
+<div id="change_password" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="change_password" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form action="pengajar/changePassword" method="post">
+          <div class="modal-header">
+            <div class="modal-title h5"><b>Change Password</b></div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="old_pass_div">
+              <label for="" class="form-label">Password Lama</label>
+              <input id="old_pass" name="old_pass" type="password" class="form-control" placeholder="Name" onkeyup="checkIfPassSame()">
+            </div>
+            <div id="new_pass_div">
+              <label for="" class="form-label">Password Baru</label>
+              <input id="new_pass" name="new_pass" type="password" class="form-control" placeholder="Name" onkeyup="checkIfPassSame()">
+            </div>
+            <div id="re_new_pass_div">
+              <label for="" class="form-label">Retype Password Baru</label>
+              <input id="retype_new_pass" name="retype_new_pass" type="password" class="form-control" placeholder="Name" onkeyup="checkIfPassSame()">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button disabled id="submit_change_password" type="submit" class="btn btn-primary">Change Password</button>
+          </div>
+        </form>
+      </div>
+	</div>
+</div>
 
 <script>
   $("#tgl_lahir").datepicker({
     dateFormat: 'dd MM yy'
   });
+
+  function checkIfPassSame() {
+    // console.log('test');
+    if($('#alert_pass')) {
+      $('#alert_pass').remove();
+    }
+    if($("#new_pass").val() != "" && $("#retype_new_pass").val() != "" && $("#old_pass").val() != "") {
+      if($("#new_pass").val() == $("#retype_new_pass").val()) {
+        console.log("same");
+        $("#submit_change_password").attr("disabled", false);
+      } else {
+        console.log("not same");
+        var span = document.createElement('span');
+        span.id = 'alert_pass';
+        span.textContent = "Password is not same";
+        span.className = 'text-danger';
+        var div = document.getElementById('re_new_pass_div');
+        div.append(span);
+        $("#submit_change_password").attr("disabled", true);
+      }
+    } else {
+      $("#submit_change_password").attr("disabled", true);
+    }
+  }
 </script>

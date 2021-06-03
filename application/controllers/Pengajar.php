@@ -16,7 +16,8 @@ class Pengajar extends Core_Controller
 
   public function index()
   {
-    $data['class_list'] = $this->Class_m->getClassByTeacher(1)->result_array();
+    $teacher_id = $this->session->userdata('user_id');
+    $data['class_list'] = $this->Class_m->getClassByTeacher($teacher_id)->result_array();
 
     $this->template("pengajar/v_daftar_kelas", "Pengajar", $data);
   }
@@ -146,8 +147,8 @@ class Pengajar extends Core_Controller
       'title'         => $post['title_materi'],
       'desc'          => $post['description_materi'],
       'created_date'  => date("Y-m-d H:i:s"),
-      'creator_id'    => 1,
-      'creator_name'  => 'Ana'
+      'creator_id'    => $this->session->userdata('user_id'),
+      'creator_name'  => $this->session->userdata('name')
     ];
 
     if (!empty($_FILES['file_materi']['name'])) {
@@ -186,8 +187,8 @@ class Pengajar extends Core_Controller
       'type'          => $post['tipe_tugas'],
       'due_date'      => str_replace('T', ' ', $post['due_date']),
       'created_date'  => date("Y-m-d H:i:s"),
-      'creator_id'    => 1,
-      'creator_name'  => 'Ana'
+      'creator_id'    => $this->session->userdata('user_id'),
+      'creator_name'  => $this->session->userdata('name')
     ];
 
     if (!empty($_FILES['file_tugas']['name'])) {
@@ -265,26 +266,33 @@ class Pengajar extends Core_Controller
     $post = $this->input->post();
     $user_id = $this->session->userdata('user_id');
 
+    $birthdate_str = strtotime($post['birthdate']);
+    $birthdate = date('Y-m-d', $birthdate_str);
+    
     $ins = [
       'email'     => $post['email'],
       'fullname'  => $post['fullname'],
       'phone'     => $post['phone'],
       'address'   => $post['alamat'],
       'gender'    => $post['gender'],
-      'birthdate' => $post['birthdate'],
+      'birthdate' => $birthdate,
     ];
+
+    $id = $this->session->userdata("user_id");
 
     // print_r($_FILES);
     if (!empty($_FILES['profile_pict']['name'])) {
       // echo "This";
       // $dir = $post['class_id'] . "_subject";
-      $dir = $post['email'] . "_pict";
+      $dir = $id . "_profile";
       $this->session->set_userdata("dir_upload", $dir);
       $upload = $this->ups('profile_pict');
       $ins['picture'] = $upload;
     }
-    print_r($ins);
-    die();
+
+    $this->Pengajar_m->updateProfile($id, $ins);
+
+    redirect('pengajar');
   }
 
   public function submitEditTugas()
@@ -322,5 +330,25 @@ class Pengajar extends Core_Controller
     }
 
     redirect('pengajar/kelas/' . $post['class_id']);
+  }
+
+  public function changePassword() {
+    $post = $this->input->post();
+
+    $id = $this->session->userdata('user_id');
+    $pass = md5($post['old_pass']);
+
+    $isPassSame = $this->User_m->checkOldPassword($id, $pass)->row_array();
+    // print_r($isPassSame);
+    // die();
+    if(!empty($isPassSame)) {
+      $data = [
+        "password" => md5($post['new_pass'])
+      ];
+
+      $this->User_m->changePassword($id, $data);
+
+      redirect('pengajar/changeProfile');
+    }
   }
 }

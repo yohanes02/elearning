@@ -43,7 +43,7 @@
                   <i class="fas fa-clipboard-check"></i>
                 </div>
                 <div class="col-8 px-0 my-0 align-self-center d-grid text-end">
-                  <span class="float-end h5 my-0"><b>80%</b></span>
+                  <span class="float-end h5 my-0"><b><?= $tugasDone ?>%</b></span>
                   <span class="float-end">Tugas Selesai</span>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                   <i class="fas fa-award"></i>
                 </div>
                 <div class="col-8 px-0 my-0 align-self-center d-grid text-end">
-                  <span class="float-end h5 my-0"><b>87</b></span>
+                  <span class="float-end h5 my-0"><b><?= $avgNilai ?></b></span>
                   <span class="float-end">Nilai Rata-rata</span>
                 </div>
               </div>
