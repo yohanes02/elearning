@@ -45,9 +45,14 @@ class Murid extends Core_Controller
         $iTugas++;
       }
     }
+    if($iTugas == 0) {
+      $tugasDone = "-";
+    } else {
+      $tugasDone = round((count($all_answer) / $iTugas) * 100, 1);
+    }
     $data['materiCount'] = $iMateri;
     $data['tugasCount'] = $iTugas;
-    $data['tugasDone'] = round((count($all_answer) / $iTugas) * 100, 1);
+    $data['tugasDone'] = $tugasDone;
 
     $sum_grade = 0;
     foreach ($all_answer as $key => $value) {

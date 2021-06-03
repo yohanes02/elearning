@@ -114,7 +114,12 @@
 											</div>
 											<div class="col-lg-9">
 												<div class="my-1">
-													<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+                      <?php if($value['type'] == 'Info') { ?>
+													<span><b><?= $value['type']?></b></span><br>
+                          <?= $value['desc']  ?>
+                      <?php } else { ?>
+                        <span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+                      <?php } ?>
 													<p><small><?= $value['creator_name'] ?></small></p>
 													<span class="card-text"><small><?= $value['created_date'] ?></small></span>
 												</div>

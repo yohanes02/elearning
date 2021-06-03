@@ -95,7 +95,12 @@
                   </div>
                   <div class="col-lg-9">
                     <div class="my-1">
-                      <span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+                      <?php if($value['type'] == 'Info') { ?>
+                        <span><b><?= $value['type']?></b></span><br>
+                        <?= $value['desc'] ?>
+                      <?php } else { ?>
+                        <span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+                      <?php } ?>
                       <p><small><?= $value['creator_name'] ?></small></p>
                       <span class="card-text"><small><?= $value['created_date'] ?></small></span>
                     </div>
@@ -140,7 +145,34 @@
         </div> -->
       </div>
     </div>
-    <div class="tab-pane fade" id="tugas" role="tabpanel" aria-labelledby="tugas-tab">...</div>
+    <div class="tab-pane fade" id="tugas" role="tabpanel" aria-labelledby="tugas-tab">
+<?php foreach ((array)$list as $key => $value) { ?>
+  <?php if($value['type'] == 'Tugas') {?>
+      <a href="<?= site_url('murid/' . $value['type'] . 'detail/' . $cls_id . '.' . $this->aes->redmoon($value['id'])) ?>" style="text-decoration: none; color: black">
+        <div class="card py-2 mb-2">
+          <div class="row">
+            <div class="col-lg-1 text-center">
+              <i class="fas <?= $value['icon'] ?> fa-3x"></i>
+            </div>
+            <div class="col-lg-9">
+              <div><?= $value['title'] ?></div>
+              <div> - </div>
+            </div>
+            <div class="col-lg-2 align-self-center">
+              <div>Due Date: </div>
+              <div>
+              <?php
+                $date = strtotime($value['due_date']);
+                echo date('d M Y H:i:s', $date);
+              ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+  <?php } ?>
+<?php } ?>
+    </div>
     <div class="tab-pane fade" id="anggota" role="tabpanel" aria-labelledby="anggota-tab">
       <div class="container">
         <div class="row my-3">
