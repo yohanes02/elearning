@@ -36,22 +36,22 @@
 				</li> -->
 			</ul>
 			<div class="d-flex">
-        <?php
-        $url = explode("/", $_SERVER['REQUEST_URI']);
-        if($url[count($url)-1] == 'pengajar' || $url[count($url)-1] == 'murid') { 
-        ?>
-				<div class="nav-link align-self-center">
-					<button class="btn text-primary" data-bs-toggle="modal" data-bs-target="
+				<?php
+				$url = explode("/", $_SERVER['REQUEST_URI']);
+				if ($url[count($url) - 1] == 'pengajar' || $url[count($url) - 1] == 'murid') {
+				?>
+					<div class="nav-link align-self-center">
+						<button class="btn text-primary" data-bs-toggle="modal" data-bs-target="
 						<?php if ($this->session->userdata('type') == 'teacher') {
 							echo '#create_class';
 						} else {
 							echo '#join_class';
 						}
 						?>" style="box-shadow: none;">
-						<i class="fa fa-plus-circle fa-2x"></i>
-					</button>
-				</div>
-        <?php } ?>
+							<i class="fa fa-plus-circle fa-2x"></i>
+						</button>
+					</div>
+				<?php } ?>
 				<?php
 				if ($this->session->userdata('type') == 'teacher') {
 				} else {
@@ -80,28 +80,30 @@
 	</div>
 </nav>
 <div id="create_class" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="create_class" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="modal-title h5"><b>Create New Class</b></div>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div id="class_name" class="mb-3">
-					<label for="" class="form-label">Class Name</label>
-					<input type="text" class="form-control" placeholder="Name">
+	<form action="" method="POST" id="new_class">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="modal-title h5"><b>Create New Class</b></div>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div id="class_desc" class="mb-3">
-					<label for="" class="form-label">Class Description</label>
-					<textarea class="form-control"></textarea>
+				<div class="modal-body">
+					<div id="class_name" class="mb-3">
+						<label for="" class="form-label">Class Name</label>
+						<input type="text" name="name" class="form-control" id="name_cc" required>
+					</div>
+					<div id="class_desc" class="mb-3">
+						<label for="" class="form-label">Class Description</label>
+						<textarea name="desc" class="form-control" id="desc_cc" required></textarea>
+					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-				<button id="create_class" type="button" class="btn btn-primary" onclick="createClass()">Create</button>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+					<button type="submit" id="create_class" type="button" class="btn btn-primary">Create</button>
+				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 </div>
 <div id="join_class" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="join_class" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
@@ -166,3 +168,38 @@
 		</div>
 	</div>
 </div> -->
+
+<script>
+	$('#new_class').submit(function(e) {
+		e.preventDefault();
+		var dat = $(this).serialize();
+
+		$.ajax({
+			url: "<?= site_url('pengajar/createClass') ?>",
+			type: "post",
+			data: dat,
+			success: function(ret) {
+				cls = JSON.parse(ret)
+				console.log(cls)
+
+				if (cls.status == "success") {
+					alert("Berhasil membuat kelas")
+					new_class = '<div class="col-lg-3 my-3" onclick="classDetail(\'' + cls.data.cls_id + '\')">\
+												<div class="card border border-dark text-center">\
+													<div class="card-body">\
+														<h5 class="card-title">' + cls.data.name + '</h5>\
+														<p class="card-text">' + cls.data.desc + '</p>\
+													</div>\
+													<div class="card-footer">' + cls.data.owner_name + '</div>\
+												</div>\
+											</div>'
+					$('.list_class').append(new_class)
+					$('#create_class').modal('hide');
+					$('#name_cc, #desc_cc').val('').text('')
+				} else {
+					alert("Gagal")
+				}
+			}
+		});
+	})
+</script>

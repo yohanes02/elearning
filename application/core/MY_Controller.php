@@ -65,4 +65,15 @@ class Core_Controller extends CI_Controller
       echo "<script>alert(\"File tidak ditemukan.\"); window.history.go(-1);</script>";
     }
   }
+
+  function getClassCode($length)
+  {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+      $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+  }
 }

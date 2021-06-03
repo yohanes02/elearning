@@ -77,4 +77,17 @@ class Pengajar_m extends CI_Model
     $this->db->where(['id' => $id])->update("adm_user", $data);
     return $this->db->affected_rows();
   }
+
+  public function insertInfo($input)
+  {
+    $this->db->insert("cls_info", $input);
+    return $this->db->affected_rows();
+  }
+  
+  public function deleteInfo($id)
+  {
+    $this->db->where(['id' => $id])->delete("cls_info");
+    return $this->db->affected_rows();
+  }
+
 }
