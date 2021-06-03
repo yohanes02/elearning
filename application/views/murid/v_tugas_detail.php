@@ -53,6 +53,7 @@
 				</span>
 				<hr class="mt-0 pt-0">
 				<div class="mb-2 d-grid">
+<?php if(new DateTime() < new DateTime ($tugas['due_date'])) { ?>
 <?php if(empty($answer) == false) { ?>
           <input type="hidden" name="answer_in_db" id="answer_in_db" value="<?= $answer['attachment'] ?>">
           <div id="file_selected" class="mb-2 row">
@@ -109,6 +110,9 @@
         <?php } ?>
 				</div>
 <?php } ?>
+<?php } else { ?>
+        <span id="file_text" style="word-break: break-word;">Tenggat waktu pengumpulan sudah terlewat</span>
+<?php }?>
 			</div>
 
 			<div id="komentar">
@@ -183,7 +187,7 @@
   });
 
   
-
+  if(empty($answer) && new DateTime() > new DateTime ($tugas['due_date']))
   $('input:file').change(
     function(e){
       
