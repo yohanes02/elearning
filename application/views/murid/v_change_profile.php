@@ -94,7 +94,7 @@
               <button id="to_login" class="btn btn-light border border-dark w-100">Cancel</button>
             </div>
             <div class="col-lg-6">
-              <button id="create_account" type="submit" class="btn btn-success w-100">Save profile</button>
+              <button id="create_account" type="submit" class="btn btn-primary w-100">Save profile</button>
             </div>
           </div>
         </div>

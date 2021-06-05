@@ -17,10 +17,10 @@
 				<div class="col-lg-4">
 					<div id="edit" class="row">
 						<div class="col-lg-6 py-3">
-							<a onclick="window.history.back()" class="col-lg-12 btn btn-warning float-end">Cancel</a>
+							<a onclick="window.history.back()" class="col-lg-12 btn btn-outline-primary float-end">Cancel</a>
 						</div>
 						<div class="col-lg-6 py-3">
-							<button type="submit" class="btn btn-success col-lg-12 float-end" id="btn_edit">Edit</button>
+							<button type="submit" class="btn btn-primary col-lg-12 float-end" id="btn_edit">Edit</button>
 							<input type="hidden" name="tugas_id" value="<?= $tgs_id ?>">
 							<input type="hidden" name="class_id" value="<?= $cls_id ?>">
 						</div>

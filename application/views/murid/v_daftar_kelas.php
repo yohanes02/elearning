@@ -2,7 +2,7 @@
 	<div class="row align-content-center">
 		<?php foreach ((array)$class_list as $key => $value) { ?>
 			<div class="col-lg-3 my-3" onclick="classDetail('<?= $this->aes->redmoon($value['id']) ?>')">
-				<div class="card border border-dark text-center">
+				<div class="card border border-primary text-center">
 					<div class="card-body">
 						<h5 class="card-title"><?= $value['name'] ?></h5>
 						<p class="card-text"><?= $value['desc'] ?></p>

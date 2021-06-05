@@ -82,7 +82,7 @@
 								<div class="container m-0 p-0">
 									<div class="row m-0">
 										<div id="buttonCK" class="bg-light p-2">
-											<button id="submit_announce" class="btn bg-success text-white float-end">Kirim</button>
+											<button id="submit_announce" class="btn bg-primary text-white float-end">Kirim</button>
 											<button id="cancel_announce" class="btn border-0 float-end" onclick="hideContent()">Cancel</button>
 										</div>
 									</div>
@@ -93,7 +93,7 @@
 							<?php if (!empty($this->session->userdata('result'))) {
 								$res = $this->session->userdata('result');
 								$this->session->unset_userdata("result");
-								$type = (strpos($res, 'Sukses') !== false) ? "success" : "danger";
+								$type = (strpos($res, 'Sukses') !== false) ? "primary" : "danger";
 								$msg = '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">
 												' . $res . '
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -104,7 +104,7 @@
 						<div id="list_post">
 							<?php foreach ((array)$list as $key => $value) { ?>
 
-								<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>" onclick="clickTest()">
+								<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>">
 									<div class="card">
 										<div class="row g-0">
 											<div class="col-lg-2 align-self-center">
@@ -114,14 +114,16 @@
 											</div>
 											<div class="col-lg-9">
 												<div class="my-1">
-                      <?php if($value['type'] == 'Info') { ?>
-													<span><b><?= $value['type']?></b></span><br>
-                          <?= $value['desc']  ?>
-                      <?php } else { ?>
-                        <span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
-                      <?php } ?>
+													<a href="<?= site_url('pengajar/detailPost/' . $value['type'] . '/' . $cls_id . '.' . $this->aes->redmoon($value['id'])) ?>" style="text-decoration: none; color: black;">
+														<?php if ($value['type'] == 'Info') { ?>
+															<span><b><?= $value['type'] ?></b></span><br>
+															<?= $value['desc']  ?>
+														<?php } else { ?>
+															<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+														<?php } ?>
+													</a>
 													<p><small><?= $value['creator_name'] ?></small></p>
-													<span class="card-text"><small><?= $value['created_date'] ?></small></span>
+													<span class="card-text text-primary"><small><?= $value['created_date'] ?></small></span>
 												</div>
 											</div>
 											<div class="col-lg-1 text-center align-self-center">
@@ -164,17 +166,26 @@
 										</select>
 									</div>
 									<div class="mb-3">
-										<label for="sort_status" class="form-label">Sort</label>
-										<select name="sort_status" id="sort_status" class="form-select">
-											<option selected disabled>Sort by status</option>
-											<option value="">Turned In</option>
-											<option value="">Turned In Late</option>
-											<option value="">Not Turned In</option>
-											<option value="">Graded</option>
-										</select>
+										<label for="sort_status" class="form-label">Status</label>
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input asw_status" value="turned_in" name="asw_status" id="t_cb">
+											<label for="t_cb" class="form-check-label">Turned In</label>
+										</div>
+										<!-- <div class="form-check">
+											<input type="checkbox" class="form-check-input asw_status" value="turned_in_late" name="asw_status" id="l_cb">
+											<label for="l_cb" class="form-check-label">Turned In Late</label>
+										</div>
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input asw_status" value="n" name="asw_status" id="n_b">
+											<label for="n_cb" class="form-check-label">Not Turned In</label>
+										</div> -->
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input asw_status" value="graded" name="asw_status" id="s_b">
+											<label for="s_b" class="form-check-label">Graded</label>
+										</div>
 									</div>
 									<div class="mb-3 btn-group">
-										<button class="btn btn-success">Run Filter</button>
+										<button class="btn btn-primary" id="filter_tugas">Run Filter</button>
 									</div>
 								</div>
 							</div>
@@ -182,61 +193,24 @@
 					</div>
 					<div class="col-lg-9">
 						<div class="row">
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Yohanes</span>
-										<br>
-										<b><span>Turned in Late</span></b>
+							<?php foreach ((array)$awr as $key => $value) { ?>
+								<div class="col-lg-4 mb-3 assignment_<?= $value['assignment_id'] ?> all_answer status_<?= str_replace(" ", "_", $value['status']) ?>">
+									<div class="card">
+										<div class="card-body">
+											<h6><span><?= $value['title'] ?></span></h6>
+											<hr class="my-2">
+											<span><?= $value['student_name'] ?></span>
+											<br>
+											<b>
+												<span class="text-<?= $value['status'] == "graded" ? 'primary' : 'success' ?>">
+													<?= ucfirst($value['status'] == "graded" ? $value['status'] . " (" . $value['grade'] . ")" : $value['status']) ?>
+												</span>
+											</b>
+											<a href="<?= site_url("pengajar/rate/" . $this->aes->redmoon($value['awr_id'])) ?>" class="btn btn-primary btn-sm" style="position:absolute; right: 1em;" id="filter_tugas">Nilai</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Yunus Sugito</span>
-										<br>
-										<b><span>Graded</span></b>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Riski Hariyasa</span>
-										<br>
-										<b><span>Turned In</span></b>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Vina Yanuar</span>
-										<br>
-										<b><span>Not Turned In</span></b>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Fitri Amalia</span>
-										<br>
-										<b><span>Turned In</span></b>
-									</div>
-								</div>
-							</div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
@@ -250,9 +224,9 @@
 							<td></td>
 							<?php foreach ((array) $asg as $k => $v) { ?>
 								<td width="<?php echo 100 / (count($asg) + 1) ?>%" class="text-center" style="vertical-align: middle;">
-									<span><?= $v['title'] ?></span>
-									<br>
-									<!-- <span><?= $v['due_date'] ?></span> -->
+									<span>
+										<h6><?= $v['title'] ?></h6>
+									</span>
 								</td>
 							<?php } ?>
 						</tr>
@@ -261,9 +235,16 @@
 						<?php foreach ($std as $key => $value) { ?>
 							<tr>
 								<td class="text-center" style="vertical-align: middle;"><?= $value['fullname'] ?></td>
-								<td class="text-center">
-									100
-								</td>
+								<?php foreach ($asg as $ky => $val) {
+									if (isset($val['awr'])) {
+										foreach ($val['awr'] as $k => $v) {
+								?>
+											<td class="text-center">
+												<?= $value['student_id'] == $v['student_id'] ? $v['grade'] : "" ?>
+											</td>
+								<?php }
+									}
+								} ?>
 							</tr>
 						<?php } ?>
 					</tbody>
@@ -276,6 +257,63 @@
 
 <script src="<?php echo base_url('assets/lib/jquery-3.6.0.min.js'); ?>" charset="utf-8"></script>
 <script>
+	$(document).ready(function() {
+
+		let fa = '<?= $fa ?>'
+
+		// if (fa != 'x') {
+		// 	$("select#tugas_list").val(fa).trigger('change');
+		// 	$('.all_answer').hide();
+		// 	$('.assignment_' + fa).show();
+		// }
+
+		$("#filter_tugas").click(function() {
+			asg = $('#tugas_list').val();
+			$('.all_answer').hide();
+
+			$('input[name="asw_status"]:checked').each(function() {
+				$('.assignment_' + asg + '.status_' + this.value).show();
+			});
+		})
+
+
+		$("#post_filter").click(function() {
+			$('.all_post').hide();
+			$('input[name="post_cb"]:checked').each(function() {
+				$('.post_' + this.value).show();
+			});
+		});
+
+
+		$('#form_announce').submit(function(e) {
+			e.preventDefault();
+			// refreshPost(1);
+			var m_data = new FormData();
+			m_data.append('file_attach', $('input[name=file_announce]')[0].files[0]);
+			m_data.append('content', CKEDITOR.instances.pengumuman.getData());
+			m_data.append('class_id', '<?= $cls_id ?>');
+
+			$.ajax({
+				url: '<?= site_url("pengajar/submitInfo") ?>',
+				data: m_data,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				dataType: 'json',
+				success: function(ret) {
+					if (ret.respon == "ok") {
+						refreshPost('<?= $cls_id ?>');
+						CKEDITOR.instances.pengumuman.setData('')
+						$('input[name=file_announce]').val('')
+					} else {
+						alert("gagal")
+					}
+				}
+			});
+		});
+
+
+	});
 	// $("#submit_announce").click(function() {
 	// 	console.log($("#file_upload"));
 	// });
@@ -314,14 +352,6 @@
 		$("#pengumuman").attr("style", "");
 	}
 
-	$("#post_filter").click(function() {
-		$('.all_post').hide();
-		$('input[name="post_cb"]:checked').each(function() {
-			console.log(this.value);
-			$('.post_' + this.value).show();
-		});
-	});
-
 
 	// $('#submit_btn').click(function() {
 	// 	var formData = new FormData($('#contactform'));
@@ -352,38 +382,11 @@
 	// 	return false;
 	// });
 
-	$('#form_announce').submit(function(e) {
-		e.preventDefault();
-		// refreshPost(1);
-		var m_data = new FormData();
-		m_data.append('file_attach', $('input[name=file_announce]')[0].files[0]);
-		m_data.append('content', CKEDITOR.instances.pengumuman.getData());
-		m_data.append('class_id', '<?= $cls_id ?>');
-
-		$.ajax({
-			url: '<?= site_url("pengajar/submitInfo") ?>',
-			data: m_data,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			dataType: 'json',
-			success: function(ret) {
-				if (ret.respon == "ok") {
-					refreshPost('<?= $cls_id ?>');
-					CKEDITOR.instances.pengumuman.setData('')
-					$('input[name=file_announce]').val('')
-				} else {
-					alert("gagal")
-				}
-			}
-		});
-
-	});
 
 	function refreshPost(cls) {
 		$.get("<?= site_url('pengajar/getPost') ?>" + '/' + cls, function(data) {
 			datapost = JSON.parse(data)
-			allpost = '<div class="alert alert-success alert-dismissible fade show" role="alert">\
+			allpost = '<div class="alert alert-primary alert-dismissible fade show" role="alert">\
 										Sukses membuat info\
 										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>\
 									</div>';
@@ -401,9 +404,12 @@
 													</div>\
 													<div class="col-lg-9">\
 														<div class="my-1">\
-															<span><b>' + x.type + ' : ' + x.title + '</b></span>\
-															<p><small>' + x.creator_name + '</small></p>\
-															<span class="card-text"><small>' + x.created_date + '</small></span>\
+															<a href="' + x.link_detail + '" style="text-decoration: none; color: black;">\
+																<span><b>' + x.title + '</b></span><br>\
+																' + x.spinf + '\
+																<p><small>' + x.creator_name + '</small></p>\
+																<span class="card-text text-primary"><small>' + x.created_date + '</small></span>\
+															</a>\
 														</div>\
 													</div>\
 													<div class="col-lg-1 text-center align-self-center">\
@@ -427,8 +433,4 @@
 		})
 
 	}
-
-  function clickTest() {
-    console.log("TEST KLIK");
-  }
 </script>

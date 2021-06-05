@@ -17,7 +17,7 @@
 				<div class="col-lg-4">
 					<div id="new" class="row">
 						<div class="col-lg-12 py-3">
-							<button type="submit" class="btn btn-success col-lg-6 float-end" id="btn_create">Create</button>
+							<button type="submit" class="btn btn-primary col-lg-6 float-end" id="btn_create">Create</button>
 							<input type="hidden" name="class_id" value="<?= $class_id ?>">
 						</div>
 					</div>

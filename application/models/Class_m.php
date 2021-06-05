@@ -39,13 +39,16 @@ class Class_m extends CI_Model
   }
 
 
-  public function getTopic($cls = "", $type = "")
+  public function getTopic($cls = "", $type = "", $id = "")
   {
     if (!empty($type)) {
       $this->db->where(['type' => $type]);
     }
     if (!empty($cls)) {
       $this->db->where(['cls_id' => $cls]);
+    }
+    if (!empty($id)) {
+      $this->db->where(['id' => $id]);
     }
     return $this->db->get("vw_cls_topic");
   }
@@ -64,9 +67,48 @@ class Class_m extends CI_Model
     return $this->db->get("cls_participant p");
   }
 
+
   public function createClass($inp)
   {
     $this->db->insert("cls_main", $inp);
     return $this->db->affected_rows();
+  }
+
+
+  public function getAnswer($cls = "", $asg = "", $awr = "")
+  {
+    $this->db->select("*, 
+      a.id as awr_id,
+      a.attachment as awr_file,
+      g.attachment as asg_file,
+      CASE
+        WHEN grade IS NOT NULL THEN
+          'graded' 
+        ELSE 'turned in' 
+      END AS status ");
+
+    if (!empty($asg)) {
+      $this->db->where(['assignment_id' => $asg]);
+    }
+    if (!empty($cls)) {
+      $this->db->where(['a.cls_id' => $cls]);
+    }
+    if (!empty($awr)) {
+      $this->db->where(['a.id' => $awr]);
+    }
+
+    $this->db->join("cls_assignment g",  "g.id=a.assignment_id", "left");
+    return $this->db->get("cls_answer a");
+  }
+
+
+  public function getComment($id, $type)
+  {
+    if ($type == "Tugas") {
+      $this->db->where(['tgs_id' => $id]);
+    } else {
+      $this->db->where(['mtr_id' => $id]);
+    }
+    return $this->db->get('komentar');
   }
 }
