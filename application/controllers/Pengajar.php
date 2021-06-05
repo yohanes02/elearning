@@ -32,6 +32,12 @@ class Pengajar extends Core_Controller
     $data['asg'] = $this->Pengajar_m->getAssignment("", $cls)->result_array();
     $data['std'] = $this->Class_m->getParticipant("", $cls)->result_array();
 
+    $this->db->order_by("g.created_date", "desc");
+    $this->db->order_by("a.uploaded_date", "desc");
+    $data['awr'] = $this->Class_m->getAnswer($cls)->result_array();
+
+    $data['fa'] = !empty($data['awr']) ? $data['awr'][0]['assignment_id'] : 'x';
+
     $this->db->order_by("created_date", "desc");
     $data['list'] = $this->Class_m->getTopic($cls)->result_array();
 
@@ -268,7 +274,7 @@ class Pengajar extends Core_Controller
 
     $birthdate_str = strtotime($post['birthdate']);
     $birthdate = date('Y-m-d', $birthdate_str);
-    
+
     $ins = [
       'email'     => $post['email'],
       'fullname'  => $post['fullname'],
@@ -332,7 +338,8 @@ class Pengajar extends Core_Controller
     redirect('pengajar/kelas/' . $post['class_id']);
   }
 
-  public function changePassword() {
+  public function changePassword()
+  {
     $post = $this->input->post();
 
     $id = $this->session->userdata('user_id');
@@ -341,7 +348,7 @@ class Pengajar extends Core_Controller
     $isPassSame = $this->User_m->checkOldPassword($id, $pass)->row_array();
     // print_r($isPassSame);
     // die();
-    if(!empty($isPassSame)) {
+    if (!empty($isPassSame)) {
       $data = [
         "password" => md5($post['new_pass'])
       ];
@@ -351,7 +358,7 @@ class Pengajar extends Core_Controller
       redirect('pengajar/changeProfile');
     }
   }
-  
+
   public function submitInfo()
   {
     $post = $this->input->post();
@@ -467,5 +474,36 @@ class Pengajar extends Core_Controller
     } else {
       echo json_encode(['status' => 'failed'], true);
     }
+  }
+
+
+  public function rate($enc)
+  {
+    $awr_id = $this->aes->bluesun($enc);
+
+    $data['awr_id'] = $enc;
+    $data['det'] = $this->Class_m->getAnswer("", "", $awr_id)->row_array();
+    $data['cls_id'] = $this->aes->redmoon($data['det']['cls_id']);
+    $data['com'] = $this->Class_m->getComment($data['det']['assignment_id'], 1)->result_array();
+
+    $this->template("pengajar/v_rate", "Nilai", $data);
+  }
+
+  public function submitRate()
+  {
+
+    $post = $this->input->post();
+    $awr = $this->aes->bluesun($post['awr_id']);
+
+    $this->Pengajar_m->updateAnswer($awr, ['grade' => $post['nilai']]);
+
+    if ($this->db->trans_status() !== FALSE) {
+      $this->db->trans_commit();
+      $this->session->set_userdata('result', 'Sukses mengisi penilaian');
+    } else {
+      $this->db->trans_rollback();
+      $this->session->set_userdata('result', 'Gagal mengisi penilaian');
+    }
+    redirect('pengajar/kelas/' . $post['cls_id']);
   }
 }

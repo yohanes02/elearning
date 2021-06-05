@@ -73,7 +73,8 @@ class Pengajar_m extends CI_Model
     return $this->db->affected_rows();
   }
 
-  public function updateProfile($id, $data) {
+  public function updateProfile($id, $data)
+  {
     $this->db->where(['id' => $id])->update("adm_user", $data);
     return $this->db->affected_rows();
   }
@@ -83,11 +84,17 @@ class Pengajar_m extends CI_Model
     $this->db->insert("cls_info", $input);
     return $this->db->affected_rows();
   }
-  
+
   public function deleteInfo($id)
   {
     $this->db->where(['id' => $id])->delete("cls_info");
     return $this->db->affected_rows();
   }
 
+
+  public function updateAnswer($id, $data)
+  {
+    $this->db->where(['id' => $id])->update("cls_answer", $data);
+    return $this->db->affected_rows();
+  }
 }

@@ -104,7 +104,7 @@
 						<div id="list_post">
 							<?php foreach ((array)$list as $key => $value) { ?>
 
-								<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>" onclick="clickTest()">
+								<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>">
 									<div class="card">
 										<div class="row g-0">
 											<div class="col-lg-2 align-self-center">
@@ -114,12 +114,12 @@
 											</div>
 											<div class="col-lg-9">
 												<div class="my-1">
-                      <?php if($value['type'] == 'Info') { ?>
-													<span><b><?= $value['type']?></b></span><br>
-                          <?= $value['desc']  ?>
-                      <?php } else { ?>
-                        <span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
-                      <?php } ?>
+													<?php if ($value['type'] == 'Info') { ?>
+														<span><b><?= $value['type'] ?></b></span><br>
+														<?= $value['desc']  ?>
+													<?php } else { ?>
+														<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+													<?php } ?>
 													<p><small><?= $value['creator_name'] ?></small></p>
 													<span class="card-text"><small><?= $value['created_date'] ?></small></span>
 												</div>
@@ -164,17 +164,26 @@
 										</select>
 									</div>
 									<div class="mb-3">
-										<label for="sort_status" class="form-label">Sort</label>
-										<select name="sort_status" id="sort_status" class="form-select">
-											<option selected disabled>Sort by status</option>
-											<option value="">Turned In</option>
-											<option value="">Turned In Late</option>
-											<option value="">Not Turned In</option>
-											<option value="">Graded</option>
-										</select>
+										<label for="sort_status" class="form-label">Status</label>
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input asw_status" value="turned_in" name="asw_status" id="t_cb">
+											<label for="t_cb" class="form-check-label">Turned In</label>
+										</div>
+										<!-- <div class="form-check">
+											<input type="checkbox" class="form-check-input asw_status" value="turned_in_late" name="asw_status" id="l_cb">
+											<label for="l_cb" class="form-check-label">Turned In Late</label>
+										</div>
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input asw_status" value="n" name="asw_status" id="n_b">
+											<label for="n_cb" class="form-check-label">Not Turned In</label>
+										</div> -->
+										<div class="form-check">
+											<input type="checkbox" class="form-check-input asw_status" value="graded" name="asw_status" id="s_b">
+											<label for="s_b" class="form-check-label">Graded</label>
+										</div>
 									</div>
 									<div class="mb-3 btn-group">
-										<button class="btn btn-success">Run Filter</button>
+										<button class="btn btn-primary" id="filter_tugas">Run Filter</button>
 									</div>
 								</div>
 							</div>
@@ -182,61 +191,24 @@
 					</div>
 					<div class="col-lg-9">
 						<div class="row">
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Yohanes</span>
-										<br>
-										<b><span>Turned in Late</span></b>
+							<?php foreach ((array)$awr as $key => $value) { ?>
+								<div class="col-lg-4 mb-3 assignment_<?= $value['assignment_id'] ?> all_answer status_<?= str_replace(" ", "_", $value['status']) ?>">
+									<div class="card">
+										<div class="card-body">
+											<span><?= $value['title'] ?></span>
+											<hr class="my-2">
+											<span><?= $value['student_name'] ?></span>
+											<br>
+											<b>
+												<span class="text-<?= $value['status'] == "graded" ? 'primary' : 'success' ?>">
+													<?= ucfirst($value['status'] == "graded" ? $value['status'] . " (" . $value['grade'] . ")" : $value['status']) ?>
+												</span>
+											</b>
+											<a href="<?= site_url("pengajar/rate/" . $this->aes->redmoon($value['awr_id'])) ?>" class="btn btn-primary btn-sm" style="position:absolute; right: 1em;" id="filter_tugas">Nilai</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Yunus Sugito</span>
-										<br>
-										<b><span>Graded</span></b>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Riski Hariyasa</span>
-										<br>
-										<b><span>Turned In</span></b>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Vina Yanuar</span>
-										<br>
-										<b><span>Not Turned In</span></b>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-4 mb-3">
-								<div class="card">
-									<div class="card-body">
-										<span>Tugas 1</span>
-										<hr class="my-2">
-										<span>Fitri Amalia</span>
-										<br>
-										<b><span>Turned In</span></b>
-									</div>
-								</div>
-							</div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
@@ -276,6 +248,63 @@
 
 <script src="<?php echo base_url('assets/lib/jquery-3.6.0.min.js'); ?>" charset="utf-8"></script>
 <script>
+	$(document).ready(function() {
+
+		let fa = '<?= $fa ?>'
+
+		// if (fa != 'x') {
+		// 	$("select#tugas_list").val(fa).trigger('change');
+		// 	$('.all_answer').hide();
+		// 	$('.assignment_' + fa).show();
+		// }
+
+		$("#filter_tugas").click(function() {
+			asg = $('#tugas_list').val();
+			$('.all_answer').hide();
+
+			$('input[name="asw_status"]:checked').each(function() {
+				$('.assignment_' + asg + '.status_' + this.value).show();
+			});
+		})
+
+
+		$("#post_filter").click(function() {
+			$('.all_post').hide();
+			$('input[name="post_cb"]:checked').each(function() {
+				$('.post_' + this.value).show();
+			});
+		});
+
+
+		$('#form_announce').submit(function(e) {
+			e.preventDefault();
+			// refreshPost(1);
+			var m_data = new FormData();
+			m_data.append('file_attach', $('input[name=file_announce]')[0].files[0]);
+			m_data.append('content', CKEDITOR.instances.pengumuman.getData());
+			m_data.append('class_id', '<?= $cls_id ?>');
+
+			$.ajax({
+				url: '<?= site_url("pengajar/submitInfo") ?>',
+				data: m_data,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				dataType: 'json',
+				success: function(ret) {
+					if (ret.respon == "ok") {
+						refreshPost('<?= $cls_id ?>');
+						CKEDITOR.instances.pengumuman.setData('')
+						$('input[name=file_announce]').val('')
+					} else {
+						alert("gagal")
+					}
+				}
+			});
+		});
+
+
+	});
 	// $("#submit_announce").click(function() {
 	// 	console.log($("#file_upload"));
 	// });
@@ -314,14 +343,6 @@
 		$("#pengumuman").attr("style", "");
 	}
 
-	$("#post_filter").click(function() {
-		$('.all_post').hide();
-		$('input[name="post_cb"]:checked').each(function() {
-			console.log(this.value);
-			$('.post_' + this.value).show();
-		});
-	});
-
 
 	// $('#submit_btn').click(function() {
 	// 	var formData = new FormData($('#contactform'));
@@ -352,33 +373,6 @@
 	// 	return false;
 	// });
 
-	$('#form_announce').submit(function(e) {
-		e.preventDefault();
-		// refreshPost(1);
-		var m_data = new FormData();
-		m_data.append('file_attach', $('input[name=file_announce]')[0].files[0]);
-		m_data.append('content', CKEDITOR.instances.pengumuman.getData());
-		m_data.append('class_id', '<?= $cls_id ?>');
-
-		$.ajax({
-			url: '<?= site_url("pengajar/submitInfo") ?>',
-			data: m_data,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			dataType: 'json',
-			success: function(ret) {
-				if (ret.respon == "ok") {
-					refreshPost('<?= $cls_id ?>');
-					CKEDITOR.instances.pengumuman.setData('')
-					$('input[name=file_announce]').val('')
-				} else {
-					alert("gagal")
-				}
-			}
-		});
-
-	});
 
 	function refreshPost(cls) {
 		$.get("<?= site_url('pengajar/getPost') ?>" + '/' + cls, function(data) {
@@ -427,8 +421,4 @@
 		})
 
 	}
-
-  function clickTest() {
-    console.log("TEST KLIK");
-  }
 </script>
