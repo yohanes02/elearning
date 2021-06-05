@@ -32,6 +32,7 @@ class Murid extends Core_Controller
     $data['teacherData'] = $this->Murid_m->getTeacherData($cls)->row_array();
     $data['participant'] = $this->Murid_m->getClassParticipant($cls)->result_array();
     $all_answer = $this->Murid_m->getAllAnswer($user_id, $cls)->result_array();
+    $data['allAnswer'] = $all_answer;
     $this->db->order_by("created_date", "desc");
     $data['list'] = $this->Class_m->getTopic($cls)->result_array();
 
@@ -69,7 +70,7 @@ class Murid extends Core_Controller
     if (count($all_answer) == 0) {
       $data['avgNilai'] = "-";
     } else {
-      $data['avgNilai'] = $sum_grade / count($all_answer);
+      $data['avgNilai'] = $sum_grade / $iTugas;
     }
 
     $this->template("murid/v_kelas", "Kelas", $data);
@@ -308,7 +309,7 @@ class Murid extends Core_Controller
       'usr_id' => $this->session->userdata('user_id'),
       'usr_name' => $this->session->userdata('name'),
       'komentar' => $komentar,
-      'created_date' => date('Y m d')
+      'created_date' => date("Y-m-d H:i:s")
     ];
 
     // print_r($ins);
@@ -327,7 +328,7 @@ class Murid extends Core_Controller
       'usr_id' => $this->session->userdata('user_id'),
       'usr_name' => $this->session->userdata('name'),
       'komentar' => $komentar,
-      'created_date' => date('Y m d')
+      'created_date' => date("Y-m-d H:i:s")
     ];
 
     // print_r($ins);

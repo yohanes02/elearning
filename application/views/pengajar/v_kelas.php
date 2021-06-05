@@ -71,7 +71,7 @@
 						<form name="form_announce" id="form_announce" action="">
 							<input type="hidden" name="class_id" value="<?= $cls_id ?>">
 							<div id="pengumuman" class="input-group shadow-sm">
-								<span class="input-group-text px-4 py-3 border-end-0" id="basic-addon2" style="background-color: transparent;"><img src="http://localhost/remedial-online/assets/teacher.png" alt="" width="40"></span>
+								<span class="input-group-text px-4 py-3 border-end-0" id="basic-addon2" style="background-color: transparent;"><img src="<?= site_url('uploads/'.$cls['owner_id'].'/profile/') ?> alt="" width="40"></span>
 								<input type="text" id="xoo" class="form-control border-start-0 border-end-0" placeholder="Umumkan sesuatu ke kelas" onclick="useCKEditor()">
 								<span class="input-group-text px-4 border-start-0" id="basic-addon2" style="background-color: transparent;"><i class="fas fa-paper-plane"></i></span>
 							</div>

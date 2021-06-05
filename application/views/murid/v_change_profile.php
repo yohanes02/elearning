@@ -39,7 +39,7 @@
       <div class="row">
         <div class="col">
           <div class="form-floating">
-            <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat"><?= $profile['address'] ?></textarea>
+            <textarea name="alamat" id="alamat" class="form-control" placeholder="Alamat" style="height: 150px;"><?= $profile['address'] ?></textarea>
             <label for="" class="form-label">Alamat</label>
           </div>
         </div>

@@ -66,7 +66,7 @@
             <div class="card-header text-center h5">Dosen</div>
             <div class="card-body row">
               <div class="col-lg-3 text-center">
-                <img src="http://localhost/remedial-online/assets/teacher.png" alt="" class="rounded-circle" width="50">
+                <img src="<?= site_url('uploads/'.$teacherData['owner_id'].'/profile/'.$teacherData['picture']) ?>" alt="" class="rounded-circle" width="50">
               </div>
               <div class="col-lg-9 align-self-center">
                 <span class="h5"><?= $teacherData['owner_name'] ?></span>
@@ -156,7 +156,22 @@
             </div>
             <div class="col-lg-9">
               <div><?= $value['title'] ?></div>
-              <div> - </div>
+              <div>
+    <?php 
+      // $output;
+      foreach ($allAnswer as $key2 => $value2) {
+        if($value['id'] == $value2['assignment_id']) {
+          $output = '0 / 100';
+          if(!empty($value2['grade'])) {
+            $output = $value2['grade'] . ' / 100';
+          }
+        } else {
+          $output = '-';
+        }
+        echo $output;
+    ?>
+    <?php } ?>
+              </div>
             </div>
             <div class="col-lg-2 align-self-center">
               <div>Due Date: </div>
@@ -181,7 +196,7 @@
             <hr class="mt-0">
             <div class="row">
               <div class="col-lg-1 text-center">
-                <img src="http://localhost/remedial-online/assets/teacher.png" alt="" style="width: 50px;">
+                <img src="<?= site_url('uploads/'.$teacherData['owner_id'].'/profile/'.$teacherData['picture']) ?>" alt="" class="rounded-circle" style="width: 50px;">
               </div>
               <div class="col-lg-11 align-self-center" style="font-size: 18px;">
                 <span><?= $teacherData['owner_name'] ?></span>

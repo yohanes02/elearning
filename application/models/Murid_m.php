@@ -9,8 +9,11 @@ class Murid_m extends CI_Model
 
   public function getTeacherData($id)
   {
-    $this->db->where(['id' => $id]);
-    return $this->db->get('cls_main');
+    $rawQuery = "SELECT a.*, b.picture FROM `cls_main` a, `adm_user` b where a.id =  13 and a.owner_id = 14 and a.owner_id = b.id";
+    // $this->db->where(['id' => $id]);
+    $execQuery = $this->db->query($rawQuery);
+    // return $this->db->get('cls_main');
+    return $execQuery;
   }
 
   public function getClassByStudent()
