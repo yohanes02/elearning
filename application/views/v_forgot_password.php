@@ -14,7 +14,7 @@
                 <input type="email" name="email" class="form-control" placeholder="Insert Email">
               </div>
               <div class="text-center">
-                <button class="btn btn-success w-50">Check Email</button>
+                <button class="btn btn-primary w-50">Check Email</button>
               </div>
             </form>
           </div>

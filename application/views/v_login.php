@@ -238,7 +238,7 @@
                       <button type="reset" id="to_login" class="btn btn-light border border-dark w-100">Back to Login</button>
                     </div>
                     <div class="col">
-                      <button type="submit" id="create_account" class="btn btn-success w-100">Create account</button>
+                      <button type="submit" id="create_account" class="btn btn-primary w-100">Create account</button>
                     </div>
                   </div>
                 </div>

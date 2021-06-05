@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="text-center">
-                <button class="btn btn-success w-50">Change Password</button>
+                <button class="btn btn-primary w-50">Change Password</button>
               </div>
             </form>
           </div>

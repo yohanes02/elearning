@@ -14,7 +14,7 @@
                 <input type="text" name="answer" class="form-control" placeholder="Answer the question">
               </div>
               <div class="text-center">
-                <button class="btn btn-success w-50">Check Answer</button>
+                <button class="btn btn-primary w-50">Check Answer</button>
               </div>
             </form>
           </div>
