@@ -29,12 +29,28 @@ class Pengajar extends Core_Controller
 
     $data['cls_id'] = $class_id;
     $data['cls'] = $this->Class_m->getClass($cls)->row_array();
-    $data['asg'] = $this->Pengajar_m->getAssignment("", $cls)->result_array();
-    $data['std'] = $this->Class_m->getParticipant("", $cls)->result_array();
-
+    
+    $asg = $this->Pengajar_m->getAssignment("", $cls)->result_array();
+    
     $this->db->order_by("g.created_date", "desc");
     $this->db->order_by("a.uploaded_date", "desc");
-    $data['awr'] = $this->Class_m->getAnswer($cls)->result_array();
+    $awr = $this->Class_m->getAnswer($cls)->result_array();
+
+    $data['awr'] = $awr;
+
+    foreach ($asg as $ky => $val) {
+      foreach ($awr as $k => $v) {
+        if($v['assignment_id'] == $val['id']){
+          $asg[$ky]['awr'][] = $v;
+        }
+      }
+    }
+
+
+    $data['asg'] = $asg;
+
+    $data['std'] = $this->Class_m->getParticipant("", $cls)->result_array();
+
 
     $data['fa'] = !empty($data['awr']) ? $data['awr'][0]['assignment_id'] : 'x';
 

@@ -82,7 +82,7 @@
 								<div class="container m-0 p-0">
 									<div class="row m-0">
 										<div id="buttonCK" class="bg-light p-2">
-											<button id="submit_announce" class="btn bg-success text-white float-end">Kirim</button>
+											<button id="submit_announce" class="btn bg-primary text-white float-end">Kirim</button>
 											<button id="cancel_announce" class="btn border-0 float-end" onclick="hideContent()">Cancel</button>
 										</div>
 									</div>
@@ -93,7 +93,7 @@
 							<?php if (!empty($this->session->userdata('result'))) {
 								$res = $this->session->userdata('result');
 								$this->session->unset_userdata("result");
-								$type = (strpos($res, 'Sukses') !== false) ? "success" : "danger";
+								$type = (strpos($res, 'Sukses') !== false) ? "primary" : "danger";
 								$msg = '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">
 												' . $res . '
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -121,7 +121,7 @@
 														<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
 													<?php } ?>
 													<p><small><?= $value['creator_name'] ?></small></p>
-													<span class="card-text"><small><?= $value['created_date'] ?></small></span>
+													<span class="card-text text-primary"><small><?= $value['created_date'] ?></small></span>
 												</div>
 											</div>
 											<div class="col-lg-1 text-center align-self-center">
@@ -195,7 +195,7 @@
 								<div class="col-lg-4 mb-3 assignment_<?= $value['assignment_id'] ?> all_answer status_<?= str_replace(" ", "_", $value['status']) ?>">
 									<div class="card">
 										<div class="card-body">
-											<span><?= $value['title'] ?></span>
+											<h6><span><?= $value['title'] ?></span></h6>
 											<hr class="my-2">
 											<span><?= $value['student_name'] ?></span>
 											<br>
@@ -222,9 +222,9 @@
 							<td></td>
 							<?php foreach ((array) $asg as $k => $v) { ?>
 								<td width="<?php echo 100 / (count($asg) + 1) ?>%" class="text-center" style="vertical-align: middle;">
-									<span><?= $v['title'] ?></span>
-									<br>
-									<!-- <span><?= $v['due_date'] ?></span> -->
+									<span>
+										<h6><?= $v['title'] ?></h6>
+									</span>
 								</td>
 							<?php } ?>
 						</tr>
@@ -233,9 +233,16 @@
 						<?php foreach ($std as $key => $value) { ?>
 							<tr>
 								<td class="text-center" style="vertical-align: middle;"><?= $value['fullname'] ?></td>
-								<td class="text-center">
-									100
-								</td>
+								<?php foreach ($asg as $ky => $val) {
+									if (isset($val['awr'])) {
+										foreach ($val['awr'] as $k => $v) {
+								?>
+											<td class="text-center">
+												<?= $value['student_id'] == $v['student_id'] ? $v['grade'] : "" ?>
+											</td>
+								<?php }
+									}
+								} ?>
 							</tr>
 						<?php } ?>
 					</tbody>
@@ -377,7 +384,7 @@
 	function refreshPost(cls) {
 		$.get("<?= site_url('pengajar/getPost') ?>" + '/' + cls, function(data) {
 			datapost = JSON.parse(data)
-			allpost = '<div class="alert alert-success alert-dismissible fade show" role="alert">\
+			allpost = '<div class="alert alert-primary alert-dismissible fade show" role="alert">\
 										Sukses membuat info\
 										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>\
 									</div>';
