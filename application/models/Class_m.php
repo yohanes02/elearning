@@ -39,13 +39,16 @@ class Class_m extends CI_Model
   }
 
 
-  public function getTopic($cls = "", $type = "")
+  public function getTopic($cls = "", $type = "", $id = "")
   {
     if (!empty($type)) {
       $this->db->where(['type' => $type]);
     }
     if (!empty($cls)) {
       $this->db->where(['cls_id' => $cls]);
+    }
+    if (!empty($id)) {
+      $this->db->where(['id' => $id]);
     }
     return $this->db->get("vw_cls_topic");
   }
@@ -101,7 +104,7 @@ class Class_m extends CI_Model
 
   public function getComment($id, $type)
   {
-    if ($type == 1) {
+    if ($type == "Tugas") {
       $this->db->where(['tgs_id' => $id]);
     } else {
       $this->db->where(['mtr_id' => $id]);

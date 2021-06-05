@@ -114,12 +114,14 @@
 											</div>
 											<div class="col-lg-9">
 												<div class="my-1">
-													<?php if ($value['type'] == 'Info') { ?>
-														<span><b><?= $value['type'] ?></b></span><br>
-														<?= $value['desc']  ?>
-													<?php } else { ?>
-														<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
-													<?php } ?>
+													<a href="<?= site_url('pengajar/detailPost/' . $value['type'] . '/' . $cls_id . '.' . $this->aes->redmoon($value['id'])) ?>" style="text-decoration: none; color: black;">
+														<?php if ($value['type'] == 'Info') { ?>
+															<span><b><?= $value['type'] ?></b></span><br>
+															<?= $value['desc']  ?>
+														<?php } else { ?>
+															<span><b><?= $value['type'] . " : " . $value['title'] ?></b></span>
+														<?php } ?>
+													</a>
 													<p><small><?= $value['creator_name'] ?></small></p>
 													<span class="card-text text-primary"><small><?= $value['created_date'] ?></small></span>
 												</div>
@@ -402,9 +404,12 @@
 													</div>\
 													<div class="col-lg-9">\
 														<div class="my-1">\
-															<span><b>' + x.type + ' : ' + x.title + '</b></span>\
-															<p><small>' + x.creator_name + '</small></p>\
-															<span class="card-text"><small>' + x.created_date + '</small></span>\
+															<a href="' + x.link_detail + '" style="text-decoration: none; color: black;">\
+																<span><b>' + x.title + '</b></span><br>\
+																' + x.spinf + '\
+																<p><small>' + x.creator_name + '</small></p>\
+																<span class="card-text text-primary"><small>' + x.created_date + '</small></span>\
+															</a>\
 														</div>\
 													</div>\
 													<div class="col-lg-1 text-center align-self-center">\

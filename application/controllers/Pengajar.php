@@ -29,9 +29,9 @@ class Pengajar extends Core_Controller
 
     $data['cls_id'] = $class_id;
     $data['cls'] = $this->Class_m->getClass($cls)->row_array();
-    
+
     $asg = $this->Pengajar_m->getAssignment("", $cls)->result_array();
-    
+
     $this->db->order_by("g.created_date", "desc");
     $this->db->order_by("a.uploaded_date", "desc");
     $awr = $this->Class_m->getAnswer($cls)->result_array();
@@ -40,7 +40,7 @@ class Pengajar extends Core_Controller
 
     foreach ($asg as $ky => $val) {
       foreach ($awr as $k => $v) {
-        if($v['assignment_id'] == $val['id']){
+        if ($v['assignment_id'] == $val['id']) {
           $asg[$ky]['awr'][] = $v;
         }
       }
@@ -422,10 +422,15 @@ class Pengajar extends Core_Controller
 
       if ($value['type'] == 'Info') {
         $list[$key]['link_edit'] = "";
+        $list[$key]['title'] = $value['type'];
+        $list[$key]['spinf'] = $value['desc'];
       } else {
         $list[$key]['link_edit'] =  '<li><a class="dropdown-item" href="' . site_url('pengajar/edit' . $value['type'] . '/' . $enc . '.' .  $this->aes->redmoon($value['id'])) . '">Edit</a></li>';
+        $list[$key]['title'] = $value['type'] . " : " . $value['title'];
+        $list[$key]['spinf'] = "";
       }
 
+      $list[$key]['link_detail'] = site_url('pengajar/detailPost/' . $value['type'] . '/' . $enc . '.' . $this->aes->redmoon($value['id']));
       $list[$key]['link_delete'] = '<li><a class="dropdown-item" href="' . site_url('pengajar/delete' . $value['type'] . '/' . $enc . '.' .  $this->aes->redmoon($value['id'])) . '">Delete</a></li>';
     }
     echo json_encode($list, true);
@@ -500,7 +505,7 @@ class Pengajar extends Core_Controller
     $data['awr_id'] = $enc;
     $data['det'] = $this->Class_m->getAnswer("", "", $awr_id)->row_array();
     $data['cls_id'] = $this->aes->redmoon($data['det']['cls_id']);
-    $data['com'] = $this->Class_m->getComment($data['det']['assignment_id'], 1)->result_array();
+    $data['com'] = $this->Class_m->getComment($data['det']['assignment_id'], "Tugas")->result_array();
 
     $this->template("pengajar/v_rate", "Nilai", $data);
   }
@@ -521,5 +526,31 @@ class Pengajar extends Core_Controller
       $this->session->set_userdata('result', 'Gagal mengisi penilaian');
     }
     redirect('pengajar/kelas/' . $post['cls_id']);
+  }
+
+  public function detailPost($type, $enc)
+  {
+    $x = explode(".", $enc);
+    $cls = $this->aes->bluesun($x[0]);
+    $id = $this->aes->bluesun($x[1]);
+
+    $data['cls_id'] = $x[0];
+    $data['detail'] = $this->Class_m->getTopic($cls, $type, $id)->row_array();
+    $data['com'] = $this->Class_m->getComment($id, $type)->result_array();
+
+    switch ($type) {
+      case 'Tugas':
+        $data['pth'] = "assignment";
+        break;
+      case 'Materi':
+        $data['pth'] = "subject";
+        break;
+      default:
+        $data['pth'] = "info";
+        $data['com'] = [];
+        break;
+    }
+
+    $this->template("pengajar/v_detail_post", "Detail Post", $data);
   }
 }
