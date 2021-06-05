@@ -104,7 +104,7 @@
 						<div id="list_post">
 							<?php foreach ((array)$list as $key => $value) { ?>
 
-								<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>">
+								<div id="classwork_item_1" class="mt-2 classwork_item all_post post_<?= $value['type'] ?>" onclick="clickTest()">
 									<div class="card">
 										<div class="row g-0">
 											<div class="col-lg-2 align-self-center">
@@ -427,4 +427,8 @@
 		})
 
 	}
+
+  function clickTest() {
+    console.log("TEST KLIK");
+  }
 </script>

@@ -79,13 +79,13 @@ class Murid extends Core_Controller
   {
     $x = explode(".", $enc);
     $tgs_id = $this->aes->bluesun($x[1]);
-    // echo $this->aes->bluesun($x[0]);
     // echo $this->aes->bluesun($x[1]);
 
     $std_id = $this->session->userdata('user_id');
 
     $data['tugas'] = $this->Pengajar_m->getAssignment($tgs_id)->row_array();
     $data['answer'] = $this->Murid_m->getAnswer($tgs_id, $std_id)->row_array();
+    $data['komentar'] = $this->Murid_m->getKomentar($tgs_id, 1)->result_array();
     $data['tgs_id'] = $x[1];
     $data['cls_id'] = $x[0];
 
@@ -199,6 +199,7 @@ class Murid extends Core_Controller
     $mtr_id = $this->aes->bluesun($x[1]);
 
     $data['materi'] = $this->Pengajar_m->getSubject($mtr_id)->row_array();
+    $data['komentar'] = $this->Murid_m->getKomentar($mtr_id, 2)->result_array();
     $data['mtr_id'] = $x[1];
     $data['cls_id'] = $x[0];
     $this->template("murid/v_materi_detail", "Materi", $data);
@@ -295,5 +296,43 @@ class Murid extends Core_Controller
 
       redirect('murid/changeProfile');
     }
+  }
+
+  public function kirimKomentarTugas() {
+    $post = $this->input->post();
+    $tgs_id = $this->aes->bluesun($post['tugas_id']);
+    $komentar = $post['komentar'];
+
+    $ins = [
+      'tgs_id' => $tgs_id,
+      'usr_id' => $this->session->userdata('user_id'),
+      'usr_name' => $this->session->userdata('name'),
+      'komentar' => $komentar,
+      'created_date' => date('Y m d')
+    ];
+
+    // print_r($ins);
+
+    $this->Murid_m->insertKomentar($ins);
+
+  }
+
+  public function kirimKomentarMateri() {
+    $post = $this->input->post();
+    $mtr_id = $post['materi_id'];
+    $komentar = $post['komentar'];
+
+    $ins = [
+      'mtr_id' => $mtr_id,
+      'usr_id' => $this->session->userdata('user_id'),
+      'usr_name' => $this->session->userdata('name'),
+      'komentar' => $komentar,
+      'created_date' => date('Y m d')
+    ];
+
+    // print_r($ins);
+
+    $this->Murid_m->insertKomentar($ins);
+
   }
 }

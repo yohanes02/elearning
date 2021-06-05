@@ -52,13 +52,42 @@
           <i class="fas fa-comment-alt"></i>
         </span>
         <hr class="mt-0 pt-0">
-        <div class="input-group">
-          <input type="text" class="form-control border-end-0" placeholder="Tulis Komentar...">
-          <span class="input-group-text px-3 border-start-0 bg-transparent">
-            <i class="fas fa-paper-plane"></i>
-          </span>
+        <form id="form_komentar" method="post">     
+          <div class="input-group">
+            <input type="hidden" name="materi_id" value="<?= $materi['id'] ?>">
+            <input type="text" id="komentar" class="form-control border-end-0" name="komentar" placeholder="Tulis Komentar...">
+            <span id="kirim_komentar" class="input-group-text px-3 border-start-0 bg-transparent">
+              <i class="fas fa-paper-plane"></i>
+            </span>
+            <!-- <button id="kirim_komentar" hidden></button> -->
+          </div>
+        </form>
+        <br>
+        <div id="list_komentar">
+<?php if(!empty($komentar)) { ?>
+  <?php foreach ($komentar as $key => $value) { ?>
+            <div class="border-start border-4 ps-1 mb-1 <?php if($value['usr_id'] == $this->session->userdata('user_id')) { echo 'border-success';} ?>">
+              <p class="mb-0" style="font-size: 12px; font-weight: bold;"><?=$value['usr_name']?></p>
+              <p class="mb-0"><?=$value['komentar']?></p>
+            </div>
+  <?php } ?>
+<?php } ?>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+$("#kirim_komentar").click(function() {
+  $.ajax({
+    type: "POST",
+    url: "murid/kirimKomentarMateri",
+    dataType: "JSON",
+    data: $('#form_komentar').serialize(),
+    success: function(data) {
+    }
+  })
+  location.reload();
+});
+</script>

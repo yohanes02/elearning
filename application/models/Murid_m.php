@@ -68,4 +68,18 @@ class Murid_m extends CI_Model
     $this->db->where(['student_id' => $id, 'cls_id' => $cls_id]);
     return $this->db->get('cls_answer');
   }
+
+  public function insertKomentar($input) {
+    $this->db->insert("komentar", $input);
+    return $this->db->affected_rows();
+  }
+
+  public function getKomentar($id, $type) {
+    if($type == 1) {
+      $this->db->where(['tgs_id' => $id]);
+    } else {
+      $this->db->where(['mtr_id' => $id]);
+    }
+    return $this->db->get('komentar');
+  }
 }
