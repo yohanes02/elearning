@@ -11,12 +11,23 @@ class Class_m extends CI_Model
   public function getClass($id = "", $code = "")
   {
     if (!empty($id)) {
-      $this->db->where(['id' => $id]);
+      $rawGetOwner = "SELECT owner_id from cls_main where id = $id";
+      $execQuery = $this->db->query($rawGetOwner);
+      // print_r($execQuery->row_array());
+      // die();
+      $result = $execQuery->row_array();
+      $ownerId = $result['owner_id'];
+      
+      $rawQuery = "SELECT a.*, b.picture FROM `cls_main` a, `adm_user` b where a.id =  $id and a.owner_id = $ownerId and a.owner_id = b.id";
+      // $this->db->where(['id' => $id]);
+      $execQuery1 = $this->db->query($rawQuery);
+      // $this->db->where(['id' => $id]);
+      return $execQuery1;
     }
     if (!empty($code)) {
       $this->db->where(['code' => $code]);
+      return $this->db->get("cls_main");
     }
-    return $this->db->get("cls_main");
   }
 
 

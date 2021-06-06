@@ -9,11 +9,18 @@ class Murid_m extends CI_Model
 
   public function getTeacherData($id)
   {
-    $rawQuery = "SELECT a.*, b.picture FROM `cls_main` a, `adm_user` b where a.id =  13 and a.owner_id = 14 and a.owner_id = b.id";
+    $rawGetOwner = "SELECT owner_id from cls_main where id = $id";
+    $execQuery = $this->db->query($rawGetOwner);
+    // print_r($execQuery->row_array());
+    // die();
+    $result = $execQuery->row_array();
+    $ownerId = $result['owner_id'];
+    
+    $rawQuery = "SELECT a.*, b.picture FROM `cls_main` a, `adm_user` b where a.id =  $id and a.owner_id = $ownerId and a.owner_id = b.id";
     // $this->db->where(['id' => $id]);
-    $execQuery = $this->db->query($rawQuery);
+    $execQuery1 = $this->db->query($rawQuery);
     // return $this->db->get('cls_main');
-    return $execQuery;
+    return $execQuery1;
   }
 
   public function getClassByStudent()
