@@ -32,14 +32,14 @@
 								<div class="row px-4 py-2" s>
 									<form action="<?= site_url('pengajar/createMateri') ?>" method="POST">
 										<input type="hidden" name="class_id" value="<?= $cls_id ?>">
-										<button type="submit" value="subject" class="btn btn-primary my-1">
+										<button type="submit" value="subject" class="btn btn-primary my-1 w-100">
 											Create Materi <span><i class="fas fa-plus"></i></span>&nbsp;
 										</button>
 										<br>
 									</form>
 									<form action="<?= site_url('pengajar/createTugas') ?>" method="POST">
 										<input type="hidden" name="class_id" value="<?= $cls_id ?>">
-										<button type="submit" value="assignment" class="btn btn-primary my-1" type="button">
+										<button type="submit" value="assignment" class="btn btn-primary my-1 w-100" type="button">
 											Create Tugas <span><i class="fas fa-plus"></i></span> &nbsp;
 										</button>
 									</form>
