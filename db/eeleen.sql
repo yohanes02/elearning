@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 05, 2021 at 02:44 PM
+-- Generation Time: Jun 06, 2021 at 11:35 AM
 -- Server version: 5.7.33-0ubuntu0.16.04.1
 -- PHP Version: 5.6.40-50+ubuntu16.04.1+deb.sury.org+1
 
@@ -102,7 +102,7 @@ CREATE TABLE `cls_answer` (
 --
 
 INSERT INTO `cls_answer` (`id`, `assignment_id`, `attachment`, `uploaded_date`, `cls_id`, `student_id`, `student_name`, `grade`, `status_answer`) VALUES
-(1, 8, '28_Mei.docx', '2021-06-04 11:31:40', 13, 15, 'Yohanes', NULL, 2);
+(1, 8, '28_Mei.docx', '2021-06-04 11:31:40', 13, 15, 'Yohanes', 100, 2);
 
 -- --------------------------------------------------------
 
@@ -249,7 +249,10 @@ INSERT INTO `komentar` (`id`, `mtr_id`, `tgs_id`, `usr_id`, `usr_name`, `komenta
 (1, NULL, 8, 15, 'Yohanes', 'Terima kasih', '0000-00-00 00:00:00'),
 (2, NULL, 8, 15, 'Yohanes', 'Terima Kasih 2', '0000-00-00 00:00:00'),
 (3, NULL, 8, 15, 'Yohanes', 'Terima Kasih 3', '0000-00-00 00:00:00'),
-(4, 4, NULL, 15, 'Yohanes', 'Terima Kasih', '0000-00-00 00:00:00');
+(4, 4, NULL, 15, 'Yohanes', 'Terima Kasih', '0000-00-00 00:00:00'),
+(5, NULL, 9, 15, 'Yohanes', 'Maaf Telat', '0000-00-00 00:00:00'),
+(6, NULL, 9, 15, 'Yohanes', 'Maaf', '0000-00-00 00:00:00'),
+(7, NULL, 9, 15, 'Yohanes', 'Maaf 2', '2021-06-05 15:43:25');
 
 -- --------------------------------------------------------
 
@@ -260,7 +263,7 @@ CREATE TABLE `vw_cls_topic` (
 `id` int(11)
 ,`cls_id` int(11)
 ,`title` varchar(255)
-,`desc` varchar(4)
+,`desc` mediumtext
 ,`attachment` varchar(255)
 ,`created_date` datetime
 ,`creator_name` varchar(255)
@@ -276,7 +279,7 @@ CREATE TABLE `vw_cls_topic` (
 --
 DROP TABLE IF EXISTS `vw_cls_topic`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_cls_topic`  AS  select `cls_subject`.`id` AS `id`,`cls_subject`.`cls_id` AS `cls_id`,`cls_subject`.`title` AS `title`,'desc' AS `desc`,`cls_subject`.`attachment` AS `attachment`,`cls_subject`.`created_date` AS `created_date`,`cls_subject`.`creator_name` AS `creator_name`,'Materi' AS `type`,'fa-book' AS `icon`,NULL AS `due_date` from `cls_subject` union select `cls_info`.`id` AS `id`,`cls_info`.`cls_id` AS `cls_id`,`cls_info`.`title` AS `title`,'desc' AS `desc`,`cls_info`.`attachment` AS `attachment`,`cls_info`.`created_date` AS `created_date`,`cls_info`.`creator_name` AS `creator_name`,'Info' AS `type`,'fa-info-circle' AS `icon`,NULL AS `due_date` from `cls_info` union select `cls_assignment`.`id` AS `id`,`cls_assignment`.`cls_id` AS `cls_id`,`cls_assignment`.`title` AS `title`,'desc' AS `desc`,`cls_assignment`.`attachment` AS `attachment`,`cls_assignment`.`created_date` AS `created_date`,`cls_assignment`.`creator_name` AS `creator_name`,'Tugas' AS `type`,'fa-clipboard-list' AS `icon`,`cls_assignment`.`due_date` AS `due_date` from `cls_assignment` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_cls_topic`  AS  select `cls_subject`.`id` AS `id`,`cls_subject`.`cls_id` AS `cls_id`,`cls_subject`.`title` AS `title`,`cls_subject`.`desc` AS `desc`,`cls_subject`.`attachment` AS `attachment`,`cls_subject`.`created_date` AS `created_date`,`cls_subject`.`creator_name` AS `creator_name`,'Materi' AS `type`,'fa-book' AS `icon`,NULL AS `due_date` from `cls_subject` union select `cls_info`.`id` AS `id`,`cls_info`.`cls_id` AS `cls_id`,`cls_info`.`title` AS `title`,`cls_info`.`desc` AS `desc`,`cls_info`.`attachment` AS `attachment`,`cls_info`.`created_date` AS `created_date`,`cls_info`.`creator_name` AS `creator_name`,'Info' AS `type`,'fa-info-circle' AS `icon`,NULL AS `due_date` from `cls_info` union select `cls_assignment`.`id` AS `id`,`cls_assignment`.`cls_id` AS `cls_id`,`cls_assignment`.`title` AS `title`,`cls_assignment`.`desc` AS `desc`,`cls_assignment`.`attachment` AS `attachment`,`cls_assignment`.`created_date` AS `created_date`,`cls_assignment`.`creator_name` AS `creator_name`,'Tugas' AS `type`,'fa-clipboard-list' AS `icon`,`cls_assignment`.`due_date` AS `due_date` from `cls_assignment` ;
 
 --
 -- Indexes for dumped tables
@@ -384,7 +387,7 @@ ALTER TABLE `cls_subject`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
