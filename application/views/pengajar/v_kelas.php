@@ -51,15 +51,15 @@
 								<label class="pt-2 px-2" for="" style="font-weight: bold;">Filter</label>
 								<div class="row px-4 py-2">
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input post_cb" value="Tugas" name="post_cb" id="tugas_cb">
+										<input type="checkbox" checked class="form-check-input post_cb" value="Tugas" name="post_cb" id="tugas_cb">
 										<label for="tugas_cb" class="form-check-label">Tugas</label>
 									</div>
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input post_cb" value="Materi" name="post_cb" id="materi_cb">
+										<input type="checkbox" checked class="form-check-input post_cb" value="Materi" name="post_cb" id="materi_cb">
 										<label for="materi_cb" class="form-check-label">Materi</label>
 									</div>
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input post_cb" value="Info" name="post_cb" id="info_cb">
+										<input type="checkbox" checked class="form-check-input post_cb" value="Info" name="post_cb" id="info_cb">
 										<label for="info_cb" class="form-check-label">Info</label>
 									</div>
 									<button class="btn btn-primary" id="post_filter">Filter</button>
@@ -168,7 +168,7 @@
 									<div class="mb-3">
 										<label for="sort_status" class="form-label">Status</label>
 										<div class="form-check">
-											<input type="checkbox" class="form-check-input asw_status" value="turned_in" name="asw_status" id="t_cb">
+											<input type="checkbox" checked class="form-check-input asw_status" value="turned_in" name="asw_status" id="t_cb">
 											<label for="t_cb" class="form-check-label">Turned In</label>
 										</div>
 										<!-- <div class="form-check">
@@ -180,7 +180,7 @@
 											<label for="n_cb" class="form-check-label">Not Turned In</label>
 										</div> -->
 										<div class="form-check">
-											<input type="checkbox" class="form-check-input asw_status" value="graded" name="asw_status" id="s_b">
+											<input type="checkbox" checked class="form-check-input asw_status" value="graded" name="asw_status" id="s_b">
 											<label for="s_b" class="form-check-label">Graded</label>
 										</div>
 									</div>

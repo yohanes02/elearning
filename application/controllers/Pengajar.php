@@ -463,11 +463,11 @@ class Pengajar extends Core_Controller
 
     $post = $this->input->post();
 
-    $list = $this->Class_m->getClass("", "")->result_array();
+    // $list = $this->Class_m->getClass("", "")->result_array();
 
-    do {
+    // do {
       $code = $this->getClassCode(6);
-    } while (in_array($code, $list));
+    // } while (in_array($code, $list));
 
     if (!empty($code)) {
       $inp = [

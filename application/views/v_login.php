@@ -60,13 +60,13 @@
 		</div> -->
     <div id="parent" class="mb-4 py-5 rounded-3 h-100">
       <div class="container-fluid h-100 px-5">
-        <div class="row h-100 bg-light rounded">
+        <div class="row h-100 rounded" style="background-color: white !important;">
           <!-- <div class="col-12 text-center align-self-center">
 						<span class="h3">Online Learning</span>
 					</div> -->
           <div class="col-sm-12 col-lg-6 px-5 align-self-center">
             <div class="text-center">
-              <img src="https://i.imgur.com/uNGdWHi.png" class="img-fluid">
+              <img src="<?= base_url('assets/images/landing.png') ?>" class="img-fluid">
             </div>
           </div>
           <div class="col-sm-12 col-lg-6 px-5 align-self-center">
@@ -117,7 +117,7 @@
                   <span class="input-group-text border-start-0" id="basic-addon1" onclick="seePassword()"><i class="fa fa-eye"></i></span>
                 </div>
                 <small>
-                  <a href="<?php echo base_url() ?>auth/forgot_pass">Forgot Password ?</a>
+                  <!-- <a href="<?php echo base_url() ?>auth/forgot_pass">Forgot Password ?</a> -->
                 </small>
                 <div class="row">
                   <div class="d-grid gap-2 col-3">
